@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+
+    <title>HaM كرتون | عالم الرسوم المتحركة</title>
+    <meta name="description" content="HaM كرتون - وجهتك الأولى لمشاهدة أفلام ومسلسلات الكرتون المدبلجة والمترجمة...">
+    <meta name="keywords" content="كرتون, كرتون اون لاين, مسلسلات كرتون, أفلام كرتون...">
+    <meta property="og:title" content="HaM كرتون - شاهد أفضل أفلام ومسلسلات الكرتون">
+    <meta property="og:description" content="كونغ فو باندا، حكاية لعبة، عصر الجليد...">
+    <meta property="og:image" content="img/dany5/dany04.jpg">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2a3f6e" id="themeColorMeta">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HaM كرتون">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========== التصميم الأصلي ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-grad-start: #2a3f6e; --bg-grad-end: #0f172a;
+            --text-primary: #ffffff; --text-secondary: rgba(255,255,255,0.85);
+            --accent-color: #2a5c8a; --accent-hover: #3a7bb5; --accent-glow: rgba(42,92,138,0.5);
+            --card-bg-front: #1a1f2e; --card-bg-back: linear-gradient(135deg, #1e2a3a, #0f1724);
+            --border-light: rgba(255,255,255,0.2); --btn-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            --header-bg: transparent; --footer-border: rgba(255,255,255,0.1);
+        }
+        body.light-mode {
+            --bg-grad-start: #f0f4fa; --bg-grad-end: #d9e2ec;
+            --text-primary: #1e293b; --text-secondary: #334155;
+            --accent-color: #1e4a6b; --accent-hover: #2b6a96; --accent-glow: rgba(30,74,107,0.3);
+            --card-bg-front: #ffffff; --card-bg-back: linear-gradient(135deg, #eef2f6, #cfdde9);
+            --border-light: rgba(30,41,59,0.15); --btn-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --footer-border: rgba(30,41,59,0.15);
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at 20% 30%, var(--bg-grad-start), var(--bg-grad-end));
+            color: var(--text-primary);
+            overflow-x: hidden; min-height: 100vh; position: relative;
+            transition: background 0.4s, color 0.2s; touch-action: pan-y pinch-zoom;
+        }
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 30%, var(--bg-grad-start), var(--bg-grad-end));
+            filter: blur(10px); z-index: -2; opacity: 0.9; transition: background 0.4s;
+        }
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(42,63,110,0.2), rgba(15,23,42,0.3));
+            z-index: -1; pointer-events: none;
+        }
+        body.light-mode::after {
+            background: radial-gradient(circle at 20% 30%, rgba(240,244,250,0.3), rgba(217,226,236,0.2));
+        }
+        
+        /* هيدر */
+        .header {
+            position: absolute; top: 20px; left: 20px; right: 20px; background: transparent;
+            border: none; padding: 0.8rem 2rem; z-index: 1000; display: flex;
+            justify-content: space-between; align-items: center; border-radius: 60px;
+            transition: 0.3s; flex-wrap: wrap; gap: 10px;
+        }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--text-primary); text-shadow: 0 0 8px rgba(0,0,0,0.3); text-decoration: none; }
+        .nav { display: flex; gap: 1.5rem; }
+        .nav a { color: var(--text-primary); text-decoration: none; font-weight: 600; transition: 0.2s; text-shadow: 0 0 8px rgba(0,0,0,0.2); }
+        .nav a:hover { color: var(--accent-color); text-shadow: 0 0 8px var(--accent-glow); }
+        .search-container { display: flex; gap: 0.8rem; align-items: center; }
+        .search-box {
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); border-radius: 40px;
+            padding: 0.3rem 1rem; border: 1px solid var(--border-light); display: flex; align-items: center; gap: 0.5rem;
+            position: relative;
+        }
+        .search-box input {
+            background: transparent; border: none; color: var(--text-primary); padding: 0.5rem;
+            outline: none; font-size: 1rem; min-width: 150px;
+        }
+        .search-box input::placeholder { color: var(--text-secondary); opacity: 0.7; }
+        .search-box button {
+            background: transparent; border: none; color: var(--text-primary); cursor: pointer;
+            font-size: 1.2rem; padding: 5px; display: flex; align-items: center;
+        }
+        .theme-btn {
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); border: 1px solid var(--border-light);
+            width: 42px; height: 42px; border-radius: 50%; cursor: pointer; color: var(--text-primary);
+            display: flex; align-items: center; justify-content: center; transition: 0.3s; font-size: 1.2rem;
+        }
+        .theme-btn:hover { background: var(--accent-color); color: white; }
+
+        /* اقتراحات البحث */
+        .search-suggestions {
+            position: absolute; top: 100%; left: 0; right: 0; margin-top: 8px;
+            background: rgba(20,30,40,0.95); backdrop-filter: blur(20px);
+            border-radius: 20px; border: 1px solid var(--border-light);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5); z-index: 1001;
+            display: none; overflow: hidden;
+        }
+        body.light-mode .search-suggestions { background: rgba(255,255,255,0.95); }
+        .suggestion-item {
+            padding: 12px 18px; cursor: pointer; display: flex; align-items: center; gap: 10px;
+            color: var(--text-primary); transition: background 0.2s;
+        }
+        .suggestion-item:hover { background: var(--accent-color); color: white; }
+        
+        /* Hero Slider */
+        .hero-video-container {
+            position: relative; height: 100vh; width: 100%; overflow: hidden;
+            touch-action: pan-y;
+        }
+        .video-slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;
+            transition: opacity 1.5s; z-index: 1;
+        }
+        .video-slide.active { opacity: 1; z-index: 2; }
+        .hero-video {
+            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover;
+            pointer-events: none; background: black;
+            will-change: transform;
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.1));
+            z-index: 3; pointer-events: none;
+        }
+        .hero-video-container::after {
+            content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px;
+            background: linear-gradient(to top, var(--bg-grad-end), transparent);
+            z-index: 4; pointer-events: none;
+        }
+        
+        /* تم حذف hero-text تماماً */
+        
+        .hero-btn, .page-btn, .watch-icon {
+            background: var(--accent-color); border: none; padding: 0.8rem 2rem;
+            border-radius: 50px; color: white; font-weight: bold; margin-top: 1rem;
+            cursor: pointer; transition: 0.3s; box-shadow: var(--btn-shadow); font-size: 1rem;
+            touch-action: manipulation;
+        }
+        .hero-btn:hover, .page-btn:hover, .watch-icon:hover {
+            background: var(--accent-hover); transform: scale(1.03); box-shadow: 0 6px 20px var(--accent-glow);
+        }
+        
+        /* أيقونات مصغرة - بدون أسماء */
+        .slider-thumbnails {
+            position: absolute; bottom: 40px; left: 0; right: 0; display: flex;
+            justify-content: center; align-items: center; gap: 30px; z-index: 10;
+            padding: 0 20px; pointer-events: none;
+        }
+        .thumbnail-item {
+            pointer-events: auto; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6));
+            width: 100px; opacity: 0.7; transform: scale(0.85);
+        }
+        .thumbnail-item.active {
+            opacity: 1; transform: scale(1.15);
+            filter: drop-shadow(0 15px 30px var(--accent-glow));
+            z-index: 11;
+        }
+        .thumbnail-item:hover { opacity: 1; transform: scale(1.05); }
+        .thumbnail-img {
+            width: 100%; aspect-ratio: 2/3; border-radius: 15px; overflow: hidden;
+            border: 3px solid transparent; transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+            background: var(--card-bg-front);
+        }
+        .thumbnail-item.active .thumbnail-img {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .thumbnail-img img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+        }
+        
+        /* قسم الكروت */
+        .section { max-width: 1400px; margin: 0 auto 4rem; padding: 0 1.5rem; position: relative; z-index: 2; }
+        .cartoon-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; }
+        .flip-card {
+            background: transparent; aspect-ratio: 2/3; perspective: 1000px; cursor: pointer;
+            touch-action: manipulation; opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .flip-card.revealed { opacity: 1; transform: translateY(0); }
+        .flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 12px; }
+        @media (hover: hover) { .flip-card:hover .flip-inner { transform: rotateY(180deg); } }
+        .flip-front, .flip-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .flip-front { background: var(--card-bg-front); }
+        .flip-front img { width: 100%; height: 100%; object-fit: cover; }
+        .flip-back {
+            background: var(--card-bg-back); color: var(--text-primary); transform: rotateY(180deg);
+            display: flex; flex-direction: column; justify-content: center; padding: 0.6rem;
+            text-align: right; font-size: 0.8rem;
+        }
+        .flip-back h3 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .rating { color: gold; margin: 0.3rem 0; font-size: 0.8rem; display: flex; gap: 2px; justify-content: flex-end; }
+        .watch-icon {
+            background: var(--accent-color); display: inline-block; padding: 0.6rem 1rem;
+            border-radius: 30px; margin-top: 0.5rem; cursor: pointer; font-weight: bold;
+            color: white; border: none; box-shadow: var(--btn-shadow); text-align: center;
+        }
+        .pagination-controls { display: flex; justify-content: center; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
+        .page-btn {
+            background: rgba(255,255,255,0.1); border: 1px solid var(--accent-color); padding: 10px 18px;
+            border-radius: 30px; color: var(--text-primary); cursor: pointer; font-weight: bold;
+            backdrop-filter: blur(5px); min-width: 45px;
+        }
+        .page-btn.active { background: var(--accent-color); color: white; }
+        
+        /* مودال الفيديو - مخفي */
+        .video-modal { display: none !important; }
+        
+        .flip-hint {
+            position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.6);
+            color: white; border-radius: 20px; padding: 4px 8px; font-size: 0.7rem;
+            display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px);
+            z-index: 5; pointer-events: none; opacity: 0.8;
+        }
+        @media (min-width: 901px) { .flip-hint { display: none; } }
+        
+        .icon-svg { width: 1em; height: 1em; fill: currentColor; vertical-align: middle; }
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--footer-border); color: var(--text-secondary); }
+        
+        /* زر الإشعارات */
+        .notify-btn {
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(5px);
+            border: 1px solid var(--border-light); width: 42px; height: 42px;
+            border-radius: 50%; cursor: pointer; color: var(--text-primary);
+            display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            margin-right: 8px;
+        }
+        .notify-btn:hover { background: var(--accent-color); color: white; }
+        
+        /* Responsive */
+        @media (max-width: 1200px) { .cartoon-grid { grid-template-columns: repeat(5, 1fr); } }
+        @media (max-width: 900px) { .cartoon-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 700px) {
+            .cartoon-grid { grid-template-columns: repeat(3, 1fr); }
+            .header { top: 10px; left: 10px; right: 10px; padding: 0.8rem 1rem; }
+            .logo { font-size: 1.4rem; }
+            .nav { order: 3; width: 100%; justify-content: center; margin-top: 5px; }
+            .thumbnail-item { width: 80px; }
+            .slider-thumbnails { gap: 20px; bottom: 30px; }
+        }
+        @media (max-width: 500px) {
+            .cartoon-grid { grid-template-columns: repeat(2, 1fr); }
+            .thumbnail-item { width: 65px; }
+            .slider-thumbnails { gap: 15px; bottom: 20px; }
+        }
+        @media (max-width: 380px) { .thumbnail-item { width: 55px; } }
+        button, .dot, .flip-card, .thumbnail-item { -webkit-tap-highlight-color: transparent; }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Video Slider -->
+    <div class="hero-video-container" id="heroVideoContainer">
+        <div class="video-slide active" id="videoSlide1">
+            <video class="hero-video" autoplay muted loop playsinline preload="auto">
+                <source src="vid/hero1.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="video-slide" id="videoSlide2">
+            <video class="hero-video" autoplay muted loop playsinline preload="none">
+                <source src="vid/hero2.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="video-slide" id="videoSlide3">
+            <video class="hero-video" autoplay muted loop playsinline preload="none">
+                <source src="vid/hero3.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <!-- أيقونات بدون أسماء - كل أيقونة تفتح صفحتها الخاصة -->
+        <div class="slider-thumbnails">
+            <div class="thumbnail-item active" data-index="0" data-link="show6/show2.html">
+                <div class="thumbnail-img">
+                    <img src="img/dany5/dany016.jpg" alt="حكاية لعبة" loading="lazy">
+                </div>
+            </div>
+            <div class="thumbnail-item" data-index="1" data-link="show6/show016.html">
+                <div class="thumbnail-img">
+                    <img src="img/dany5/dany025.jpg" alt="الأسد الملك" loading="lazy">
+                </div>
+            </div>
+            <div class="thumbnail-item" data-index="2" data-link="show6/show1.html">
+                <div class="thumbnail-img">
+                    <img src="img/dany5/dany04.jpg" alt="كونغ فو باندا" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">🎬 HaM كرتون</div>
+        <div class="nav">
+            <a href="#">الرئيسية</a>
+            <a href="#watch">شاهد الان</a>
+            <a href="#" id="navSeries">مسلسلات</a>
+            <a href="#" id="navMovies">أفلام</a>
+        </div>
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن فيلم أو مسلسل..." aria-label="بحث" autocomplete="off">
+                <button id="searchBtn" aria-label="بحث">
+                    <svg class="icon-svg" viewBox="0 0 512 512" width="1.2em" height="1.2em"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+                </button>
+                <div class="search-suggestions" id="searchSuggestions"></div>
+            </div>
+            <button class="notify-btn" id="enableNotificationsBtn" aria-label="تفعيل الإشعارات">
+                <svg class="icon-svg" viewBox="0 0 448 512" width="1.2em" height="1.2em"><path d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z"/></svg>
+            </button>
+            <button class="theme-btn" id="themeToggle" aria-label="تغيير السمة">
+                <svg class="icon-svg" viewBox="0 0 512 512" width="1.2em" height="1.2em"><path d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23C301.632 1.15 270.809 0 239.961 0 107.998 0 0 107.998 0 240c0 132.002 107.998 240 240 240h43.211z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Grid Section -->
+    <section id="watch" class="section">
+        <div class="cartoon-grid" id="mainGrid"></div>
+        <div class="pagination-controls" id="paginationControls"></div>
+    </section>
+
+    <footer><p>© 2025 HaM كرتون - حيث الخيال يصبح حقيقة</p></footer>
+
+    <!-- صوت النقرة -->
+    <audio id="clickSound" preload="auto" style="display:none;">
+        <source src="sounds/click.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        (function(){
+            // ========== إعداد الصوت ==========
+            const clickAudio = document.getElementById('clickSound');
+            function playClick() { if (clickAudio) { clickAudio.currentTime = 0; clickAudio.play().catch(()=>{}); } }
+            document.body.addEventListener('click', function initAudio() { playClick(); }, { once: true });
+
+            // ========== بارالاكس ==========
+            const heroVideo = document.querySelector('.hero-video');
+            window.addEventListener('scroll', () => {
+                if (heroVideo) heroVideo.style.transform = `translate(-50%, calc(-50% + ${window.scrollY * 0.2}px))`;
+            });
+
+            // ========== بيانات الكرتون ==========
+            const allItems = [
+                { title: "كونغ فو باندا", image: "img/dany5/dany04.jpg", link: "show6/show1.html", rating: 8.7, type: 'movie' },
+                { title: "حكاية لعبه", image: "img/dany5/dany016.jpg", link: "show6/show2.html", rating: 8.8, type: 'movie' },
+                { title: "النمله والجراد", image: "img/dany5/dany013.jpg", link: "show6/show3.html", rating: 7.9, type: 'movie' },
+                { title: "عائلة روبنسون", image: "img/dany5/dany017.jpg", link: "show6/show4.html", rating: 8.1, type: 'movie' },
+                { title: "مزرعه فى خطر", image: "img/dany5/dany018.jpg", link: "show6/show5.html", rating: 7.5, type: 'movie' },
+                { title: "ليله فى المتحف", image: "img/dany5/dany019.jpg", link: "show6/show6.html", rating: 8.3, type: 'movie' },
+                { title: "مريدا", image: "img/dany5/dany011.jpg", link: "show6/show7.html", rating: 8.4, type: 'movie' },
+                { title: "بيت التنانين", image: "img/dany5/dany01.jpg", link: "show6/show8.html", rating: 8.9, type: 'series' },
+                { title: "عصر الجليد", image: "img/dany5/dany08.jpg", link: "show6/show9.html", rating: 8.5, type: 'movie' },
+                { title: "مسلسل ملكة الثلج", image: "img/dany5/dany02.jpg", link: "show6/show10.html", rating: 8.4, type: 'series' },
+                { title: "مسلسل الامبراطور 2000", image: "img/dany5/dany021.jpg", link: "show6/show011.html", rating: 7.8, type: 'series' },
+                { title: "مسلسل الامبراطور2004", image: "img/dany5/dany020.jpg", link: "show6/show012.html", rating: 7.7, type: 'series' },
+                { title: "مسلسل فوق up", image: "img/dany5/dany023.jpg", link: "show6/show013.html", rating: 8.9, type: 'series' },
+                { title: "مسلسل بن تن", image: "img/dany5/dany024.jpg", link: "show6/show014.html", rating: 8.2, type: 'series' },
+                { title: "مسلسل قلبا وقالبا", image: "img/dany5/dany022.jpg", link: "show6/show015.html", rating: 8.0, type: 'series' },
+                { title: "مسلسل الاسد الملك", image: "img/dany5/dany025.jpg", link: "show6/show016.html", rating: 8.8, type: 'series' },
+                { title: "الشقيقان", image: "img/dany5/dany034.jpg", link: "show6/show017.html", rating: 9.0, type: 'series' },
+                { title: "مسلسل روح", image: "img/dany5/dany027.jpg", link: "show6/show018.html", rating: 8.3, type: 'series' }
+            ];
+
+            const ITEMS_PER_PAGE = 18;
+            let currentPage = 1, currentFilter = 'all', filteredItems = [...allItems];
+
+            function getStars(rating) {
+                const full = Math.floor(rating);
+                let starsHtml = '';
+                for (let i=0; i<full; i++) starsHtml += '<svg width="1em" height="1em" viewBox="0 0 576 512" style="fill:gold;"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.1 23 46 46.4 33.7L288 439.6l130.7 68.7c23.4 12.3 50.9-7.6 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>';
+                if (rating % 1 >= 0.5) starsHtml += '<svg width="1em" height="1em" viewBox="0 0 576 512" style="fill:gold;"><path d="M288 0c-11.4 0-22.8 5.9-28.7 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.1 23 46 46.4 33.7L288 439.6V0z"/></svg>';
+                const empty = 5 - Math.ceil(rating);
+                for (let i=0; i<empty; i++) starsHtml += '<svg width="1em" height="1em" viewBox="0 0 576 512" style="fill:gray;"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.1 23 46 46.4 33.7L288 439.6l130.7 68.7c23.4 12.3 50.9-7.6 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg>';
+                return starsHtml;
+            }
+
+            // ========== فتح صفحة المشاهدة الفعلية ==========
+            function openLink(url) {
+                playClick();
+                if (url && url !== "#") {
+                    window.open(url, '_blank');
+                } else {
+                    alert('الرابط غير متوفر');
+                }
+            }
+
+            function renderGrid(items) {
+                const container = document.getElementById('mainGrid');
+                container.innerHTML = '';
+                items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'flip-card';
+                    card.innerHTML = `
+                        <div class="flip-inner">
+                            <div class="flip-front">
+                                <img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/140x210?text=No+Image'">
+                                <div class="flip-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M7 10l5 5 5-5H7z"/></svg> اضغط للتفاصيل</div>
+                            </div>
+                            <div class="flip-back">
+                                <h3>${item.title}</h3>
+                                <div class="rating">${getStars(item.rating)} ${item.rating}</div>
+                                <p>${item.type==='series'||item.title.includes('مسلسل')?'مسلسل':'فيلم'}</p>
+                                <div class="watch-icon" data-link="${item.link}">
+                                    <svg width="1em" height="1em" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg> مشاهدة
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+                attachEvents();
+                observeCards();
+            }
+
+            function attachEvents() {
+                document.querySelectorAll('.watch-icon').forEach(icon => {
+                    icon.addEventListener('click', (e) => {
+                        e.stopPropagation(); 
+                        openLink(icon.dataset.link);
+                    });
+                });
+                document.querySelectorAll('.flip-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        if (e.target.closest('.watch-icon')) return;
+                        const icon = card.querySelector('.watch-icon');
+                        if (icon) openLink(icon.dataset.link);
+                    });
+                });
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
+            }, { threshold: 0.1 });
+            function observeCards() { document.querySelectorAll('.flip-card').forEach(card => observer.observe(card)); }
+
+            function updateDisplay() {
+                const total = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+                if (currentPage > total) currentPage = total || 1;
+                const start = (currentPage-1)*ITEMS_PER_PAGE;
+                renderGrid(filteredItems.slice(start, start+ITEMS_PER_PAGE));
+                renderPagination(total);
+            }
+
+            function renderPagination(totalPages) {
+                const cont = document.getElementById('paginationControls');
+                cont.innerHTML = '';
+                if (totalPages <= 1) return;
+                const prev = document.createElement('button'); prev.textContent='‹ السابق'; prev.className='page-btn';
+                prev.onclick = ()=>{ if(currentPage>1){ currentPage--; updateDisplay(); } };
+                cont.appendChild(prev);
+                for (let i=1; i<=totalPages; i++) {
+                    const btn = document.createElement('button'); btn.textContent=i; btn.className='page-btn'+(i===currentPage?' active':'');
+                    btn.onclick = ()=>{ currentPage=i; updateDisplay(); };
+                    cont.appendChild(btn);
+                }
+                const next = document.createElement('button'); next.textContent='التالي ›'; next.className='page-btn';
+                next.onclick = ()=>{ if(currentPage<totalPages){ currentPage++; updateDisplay(); } };
+                cont.appendChild(next);
+            }
+
+            function filterItems(type) {
+                if (type==='movies') filteredItems = allItems.filter(i=> i.type==='movie'||!i.title.includes('مسلسل'));
+                else if (type==='series') filteredItems = allItems.filter(i=> i.type==='series'||i.title.includes('مسلسل'));
+                else filteredItems = [...allItems];
+                currentFilter = type; currentPage = 1; updateDisplay();
+            }
+
+            // بحث + اقتراحات
+            const searchInput = document.getElementById('searchInput');
+            const suggestionsDiv = document.getElementById('searchSuggestions');
+            function showSuggestions(query) {
+                if (query.length < 2) { suggestionsDiv.style.display = 'none'; return; }
+                const matches = allItems.filter(item => item.title.toLowerCase().includes(query)).slice(0, 5);
+                if (matches.length === 0) { suggestionsDiv.style.display = 'none'; return; }
+                suggestionsDiv.innerHTML = matches.map(item => `
+                    <div class="suggestion-item" data-title="${item.title}">
+                        <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C11.01 14 13 12.01 13 9.5S11.01 5 9.5 5 6 6.99 6 9.5 7.99 14 9.5 14z"/></svg>
+                        ${item.title}
+                    </div>
+                `).join('');
+                suggestionsDiv.style.display = 'block';
+            }
+            searchInput.addEventListener('input', (e) => {
+                const q = e.target.value.trim().toLowerCase();
+                showSuggestions(q);
+                if (q==='') filterItems(currentFilter);
+                else {
+                    filteredItems = allItems.filter(i=> i.title.toLowerCase().includes(q));
+                    currentPage = 1;
+                    if (filteredItems.length===0) {
+                        document.getElementById('mainGrid').innerHTML='<p style="grid-column:1/-1; text-align:center;">لا توجد نتائج</p>';
+                        document.getElementById('paginationControls').innerHTML='';
+                    } else updateDisplay();
+                }
+            });
+            suggestionsDiv.addEventListener('click', (e) => {
+                const item = e.target.closest('.suggestion-item');
+                if (item) { searchInput.value = item.dataset.title; suggestionsDiv.style.display = 'none'; searchInput.dispatchEvent(new Event('input')); }
+            });
+            document.addEventListener('click', (e) => { if (!e.target.closest('.search-box')) suggestionsDiv.style.display = 'none'; });
+            document.getElementById('searchBtn').addEventListener('click', ()=>{ searchInput.dispatchEvent(new Event('input')); });
+
+            // Navigation
+            document.getElementById('navSeries').addEventListener('click', e=>{ e.preventDefault(); filterItems('series'); });
+            document.getElementById('navMovies').addEventListener('click', e=>{ e.preventDefault(); filterItems('movies'); });
+            document.querySelector('.nav a[href="#"]').addEventListener('click', e=>{ e.preventDefault(); filterItems('all'); });
+            document.querySelector('.nav a[href="#watch"]').addEventListener('click', e=>{ e.preventDefault(); filterItems('all'); });
+
+            // ========== السلايدر + Touch Swipe + فتح الصفحة من الأيقونات ==========
+            const slides = document.querySelectorAll('.video-slide');
+            const thumbs = document.querySelectorAll('.thumbnail-item');
+            let currentSlide = 0, interval;
+            
+            function goToSlide(index) {
+                slides[currentSlide].classList.remove('active');
+                thumbs[currentSlide].classList.remove('active');
+                currentSlide = (index + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                thumbs[currentSlide].classList.add('active');
+                slides.forEach((s,i)=> { const v=s.querySelector('video'); if(v) i===currentSlide? v.play().catch(()=>{}): v.pause(); });
+                resetInterval();
+            }
+            
+            function nextSlide() { goToSlide(currentSlide+1); }
+            function prevSlide() { goToSlide(currentSlide-1); }
+            function resetInterval() { clearInterval(interval); interval = setInterval(nextSlide, 8000); }
+            
+            // تعديل: كل أيقونة تفتح صفحتها الخاصة
+            thumbs.forEach((thumb, i) => {
+                thumb.addEventListener('click', (e) => {
+                    playClick();
+                    
+                    // تغيير السلايدر للفيديو المناسب
+                    goToSlide(i);
+                    
+                    // فتح صفحة المشاهدة الخاصة بالأيقونة
+                    const link = thumb.getAttribute('data-link');
+                    if (link) {
+                        window.open(link, '_blank');
+                    }
+                });
+            });
+            
+            const heroContainer = document.querySelector('.hero-video-container');
+            heroContainer.addEventListener('mouseenter', ()=>clearInterval(interval));
+            heroContainer.addEventListener('mouseleave', resetInterval);
+            
+            // Touch Swipe
+            let touchStartX = 0, touchEndX = 0;
+            heroContainer.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+            heroContainer.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const swipeThreshold = 50;
+                if (touchEndX < touchStartX - swipeThreshold) nextSlide();
+                else if (touchEndX > touchStartX + swipeThreshold) prevSlide();
+            });
+            resetInterval();
+
+            // ========== Push Notifications ==========
+            const notifyBtn = document.getElementById('enableNotificationsBtn');
+            let isSubscribed = false, swRegistration = null;
+            if ('serviceWorker' in navigator && 'PushManager' in window) {
+                navigator.serviceWorker.register('/sw.js').then(reg => { swRegistration = reg; checkSubscription(); });
+            } else { notifyBtn.style.display = 'none'; }
+            function checkSubscription() { swRegistration.pushManager.getSubscription().then(sub => { isSubscribed = !(sub === null); updateNotifyBtn(); }); }
+            function updateNotifyBtn() {
+                notifyBtn.innerHTML = isSubscribed ? 
+                    '<svg class="icon-svg" viewBox="0 0 448 512" width="1.2em" height="1.2em"><path d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z"/></svg>' :
+                    '<svg class="icon-svg" viewBox="0 0 448 512" width="1.2em" height="1.2em"><path d="M439.39 362.29c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71zM224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64z"/></svg>';
+            }
+            notifyBtn.addEventListener('click', () => {
+                playClick();
+                if (!swRegistration) return;
+                if (isSubscribed) {
+                    swRegistration.pushManager.getSubscription().then(sub => sub.unsubscribe()).then(() => { isSubscribed = false; updateNotifyBtn(); });
+                } else {
+                    swRegistration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlB64ToUint8Array('BPL0qEydcGGgM0oKUJpTiZQoFZtSxL0KbTk2zP8qQz6vVvO1L0wLd5cFgJ4jK1kZw') })
+                        .then(() => { isSubscribed = true; updateNotifyBtn(); }).catch(() => alert('تعذر تفعيل الإشعارات'));
+                }
+            });
+            function urlB64ToUint8Array(b) { const p='='.repeat((4-b.length%4)%4); const r=window.atob((b+p).replace(/\-/g,'+').replace(/_/g,'/')); return new Uint8Array([...r].map(c=>c.charCodeAt(0))); }
+
+            // الثيم
+            const themeBtn = document.getElementById('themeToggle');
+            const body = document.body;
+            let isDark = true;
+            themeBtn.addEventListener('click', ()=>{
+                playClick();
+                if (isDark) { body.classList.add('light-mode'); themeBtn.innerHTML = '<svg class="icon-svg" viewBox="0 0 512 512" width="1.2em" height="1.2em"><path d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>'; isDark=false; }
+                else { body.classList.remove('light-mode'); themeBtn.innerHTML = '<svg class="icon-svg" viewBox="0 0 512 512" width="1.2em" height="1.2em"><path d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23C301.632 1.15 270.809 0 239.961 0 107.998 0 0 107.998 0 240c0 132.002 107.998 240 240 240h43.211z"/></svg>'; isDark=true; }
+                document.getElementById('themeColorMeta').setAttribute('content', isDark?'#2a3f6e':'#1e4a6b');
+            });
+
+            updateDisplay();
+        })();
+    </script>
+</body>
+</html>
