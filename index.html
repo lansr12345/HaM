@@ -140,19 +140,7 @@
             z-index: 4; pointer-events: none;
         }
         
-        /* تم حذف hero-text تماماً */
-        
-        .hero-btn, .page-btn, .watch-icon {
-            background: var(--accent-color); border: none; padding: 0.8rem 2rem;
-            border-radius: 50px; color: white; font-weight: bold; margin-top: 1rem;
-            cursor: pointer; transition: 0.3s; box-shadow: var(--btn-shadow); font-size: 1rem;
-            touch-action: manipulation;
-        }
-        .hero-btn:hover, .page-btn:hover, .watch-icon:hover {
-            background: var(--accent-hover); transform: scale(1.03); box-shadow: 0 6px 20px var(--accent-glow);
-        }
-        
-        /* أيقونات مصغرة - بدون أسماء */
+        /* أيقونات مصغرة */
         .slider-thumbnails {
             position: absolute; bottom: 40px; left: 0; right: 0; display: flex;
             justify-content: center; align-items: center; gap: 30px; z-index: 10;
@@ -163,6 +151,7 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6));
             width: 100px; opacity: 0.7; transform: scale(0.85);
+            position: relative;
         }
         .thumbnail-item.active {
             opacity: 1; transform: scale(1.15);
@@ -183,24 +172,102 @@
         .thumbnail-img img {
             width: 100%; height: 100%; object-fit: cover; display: block;
         }
+
+        /* Tooltip للأيقونات - تحت الأيقونة - حجم أصغر */
+        .thumbnail-item::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--accent-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(8px);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 100;
+        }
+        .thumbnail-item:hover::after,
+        .thumbnail-item:active::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(5px);
+        }
+        /* مثلث صغير فوق الـ tooltip - حجم أصغر */
+        .thumbnail-item::before {
+            content: "";
+            position: absolute;
+            top: calc(100% - 3px);
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 4px;
+            border-style: solid;
+            border-color: transparent transparent var(--accent-color) transparent;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .thumbnail-item:hover::before,
+        .thumbnail-item:active::before {
+            opacity: 1;
+        }
         
         /* قسم الكروت */
         .section { max-width: 1400px; margin: 0 auto 4rem; padding: 0 1.5rem; position: relative; z-index: 2; }
-        .cartoon-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; }
+        
+        /* تم تعديله للتوافق مع الموبايل */
+        .cartoon-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1.2rem;
+            grid-auto-rows: auto; /* يضمن ارتفاع الصفوف تلقائي */
+        }
         .flip-card {
-            background: transparent; aspect-ratio: 2/3; perspective: 1000px; cursor: pointer;
-            touch-action: manipulation; opacity: 0; transform: translateY(30px);
+            background: transparent;
+            aspect-ratio: 2 / 3;
+            perspective: 1000px;
+            cursor: pointer;
+            touch-action: manipulation;
+            opacity: 0;
+            transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            min-height: 0;  /* حل مشكلة انهيار الارتفاع على الموبايل */
+            width: 100%;
         }
         .flip-card.revealed { opacity: 1; transform: translateY(0); }
-        .flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 12px; }
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 12px;
+            min-height: 0; /* مساعدة للمتصفح */
+        }
         @media (hover: hover) { .flip-card:hover .flip-inner { transform: rotateY(180deg); } }
         .flip-front, .flip-back {
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-            border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
         .flip-front { background: var(--card-bg-front); }
-        .flip-front img { width: 100%; height: 100%; object-fit: cover; }
+        .flip-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block; /* يمنع الفراغات أسفل الصورة */
+        }
         .flip-back {
             background: var(--card-bg-back); color: var(--text-primary); transform: rotateY(180deg);
             display: flex; flex-direction: column; justify-content: center; padding: 0.6rem;
@@ -221,7 +288,7 @@
         }
         .page-btn.active { background: var(--accent-color); color: white; }
         
-        /* مودال الفيديو - مخفي */
+        /* مودال مخفي */
         .video-modal { display: none !important; }
         
         .flip-hint {
@@ -255,11 +322,13 @@
             .nav { order: 3; width: 100%; justify-content: center; margin-top: 5px; }
             .thumbnail-item { width: 80px; }
             .slider-thumbnails { gap: 20px; bottom: 30px; }
+            .thumbnail-item::after { font-size: 0.55rem; padding: 2px 6px; }
         }
         @media (max-width: 500px) {
             .cartoon-grid { grid-template-columns: repeat(2, 1fr); }
             .thumbnail-item { width: 65px; }
             .slider-thumbnails { gap: 15px; bottom: 20px; }
+            .thumbnail-item::after { font-size: 0.5rem; padding: 2px 5px; }
         }
         @media (max-width: 380px) { .thumbnail-item { width: 55px; } }
         button, .dot, .flip-card, .thumbnail-item { -webkit-tap-highlight-color: transparent; }
@@ -286,19 +355,19 @@
         </div>
         <div class="hero-overlay"></div>
         
-        <!-- أيقونات بدون أسماء - كل أيقونة تفتح صفحتها الخاصة -->
+        <!-- أيقونات مع Tooltip تحت -->
         <div class="slider-thumbnails">
-            <div class="thumbnail-item active" data-index="0" data-link="show6/show2.html">
+            <div class="thumbnail-item active" data-index="0" data-link="show6/show2.html" data-tooltip="🐼 حكاية لعبة">
                 <div class="thumbnail-img">
                     <img src="img/dany5/dany016.jpg" alt="حكاية لعبة" loading="lazy">
                 </div>
             </div>
-            <div class="thumbnail-item" data-index="1" data-link="show6/show016.html">
+            <div class="thumbnail-item" data-index="1" data-link="show6/show016.html" data-tooltip="🦁 الأسد الملك">
                 <div class="thumbnail-img">
                     <img src="img/dany5/dany025.jpg" alt="الأسد الملك" loading="lazy">
                 </div>
             </div>
-            <div class="thumbnail-item" data-index="2" data-link="show6/show1.html">
+            <div class="thumbnail-item" data-index="2" data-link="show6/show1.html" data-tooltip="🐉 كونغ فو باندا">
                 <div class="thumbnail-img">
                     <img src="img/dany5/dany04.jpg" alt="كونغ فو باندا" loading="lazy">
                 </div>
@@ -393,7 +462,7 @@
                 return starsHtml;
             }
 
-            // ========== فتح صفحة المشاهدة الفعلية ==========
+            // ========== فتح صفحة المشاهدة ==========
             function openLink(url) {
                 playClick();
                 if (url && url !== "#") {
@@ -544,15 +613,13 @@
             function prevSlide() { goToSlide(currentSlide-1); }
             function resetInterval() { clearInterval(interval); interval = setInterval(nextSlide, 8000); }
             
-            // تعديل: كل أيقونة تفتح صفحتها الخاصة
-            thumbs.forEach((thumb, i) => {
+            // الأيقونات: تغيير السلايدر + فتح صفحة المشاهدة
+            thumbs.forEach((thumb) => {
                 thumb.addEventListener('click', (e) => {
                     playClick();
+                    const index = parseInt(thumb.getAttribute('data-index'), 10);
+                    goToSlide(index);
                     
-                    // تغيير السلايدر للفيديو المناسب
-                    goToSlide(i);
-                    
-                    // فتح صفحة المشاهدة الخاصة بالأيقونة
                     const link = thumb.getAttribute('data-link');
                     if (link) {
                         window.open(link, '_blank');
