@@ -499,18 +499,18 @@
             .header {
                 padding: 0.6rem 1rem;
                 display: grid;
-                grid-template-columns: 1fr auto;
+                grid-template-columns: auto 1fr;  /* عمود للأيقونات وعمود للشعار */
                 gap: 8px;
                 align-items: center;
             }
             .logo {
+                grid-column: 2;
+                justify-self: end;  /* الشعار في أقصى اليسار */
                 font-size: 1.5rem;
-                grid-column: 1;
-                justify-self: start;
             }
             .search-container {
-                grid-column: 2;
-                justify-self: end;
+                grid-column: 1;
+                justify-self: start;  /* الأيقونات في أقصى اليمين */
                 gap: 0.3rem;
                 margin: 0;
                 padding: 0;
