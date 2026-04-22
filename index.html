@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
@@ -142,7 +143,8 @@
         
         .header {
             position: absolute;
-            top: 20px;
+            top: 0;
+            /* تم رفعه لأقصى حد */
             left: 20px;
             right: 20px;
             background: transparent;
@@ -178,7 +180,30 @@
             display: flex;
             gap: 0.8rem;
             align-items: center;
+            position: relative;
         }
+        /* أيقونة البحث */
+        
+        .search-icon-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-light);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            order: 2;
+        }
+        
+        .search-icon-btn:hover {
+            background: var(--accent-color);
+        }
+        /* مربع البحث - مخفي افتراضياً */
         
         .search-box {
             background: rgba(255, 255, 255, 0.1);
@@ -188,6 +213,22 @@
             border: 1px solid var(--border-light);
             display: flex;
             align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: opacity 0.3s ease, visibility 0.3s, transform 0.3s var(--ease-smooth);
+            position: absolute;
+            left: 50px;
+            background: rgba(20, 30, 50, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 10;
+        }
+        
+        .search-box.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scaleX(1);
         }
         
         .search-box input {
@@ -197,7 +238,7 @@
             padding: 0.5rem;
             outline: none;
             font-size: 1rem;
-            min-width: 150px;
+            min-width: 200px;
         }
         
         .search-box button {
@@ -205,6 +246,7 @@
             border: none;
             color: var(--text-primary);
             font-size: 1.2rem;
+            cursor: pointer;
         }
         
         .theme-btn,
@@ -296,7 +338,8 @@
         
         .slider-thumbnails {
             position: absolute;
-            bottom: 40px;
+            bottom: 120px;
+            /* تم رفع الأيقونات للأعلى أكثر */
             left: 0;
             right: 0;
             display: flex;
@@ -329,6 +372,7 @@
             overflow: hidden;
             border: 3px solid transparent;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
+            transition: opacity 0.3s;
         }
         
         .thumbnail-item.active .thumbnail-img {
@@ -340,6 +384,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: opacity 0.3s;
+        }
+        
+        .thumbnail-img.fade-out img {
+            opacity: 0;
         }
         /* Tooltip */
         
@@ -590,15 +639,16 @@
         <div class="video-slide"><video class="hero-video" autoplay muted loop playsinline><source src="vid/hero2.mp4" type="video/mp4"></video></div>
         <div class="video-slide"><video class="hero-video" autoplay muted loop playsinline><source src="vid/hero3.mp4" type="video/mp4"></video></div>
         <div class="hero-overlay"></div>
-        <div class="slider-thumbnails">
-            <div class="thumbnail-item active" data-index="0" data-link="show6/show2.html" data-tooltip="🐼 حكاية لعبة">
-                <div class="thumbnail-img"><img src="img/dany5/dany016.jpg" alt=""></div>
+        <!-- ثلاث أيقونات فقط، يتم تعبئتها ديناميكياً -->
+        <div class="slider-thumbnails" id="thumbnailCarousel">
+            <div class="thumbnail-item active" data-index="0" id="thumb1">
+                <div class="thumbnail-img"><img id="img1" src="" alt=""></div>
             </div>
-            <div class="thumbnail-item" data-index="1" data-link="show6/show016.html" data-tooltip="🦁 الأسد الملك">
-                <div class="thumbnail-img"><img src="img/dany5/dany025.jpg" alt=""></div>
+            <div class="thumbnail-item" data-index="1" id="thumb2">
+                <div class="thumbnail-img"><img id="img2" src="" alt=""></div>
             </div>
-            <div class="thumbnail-item" data-index="2" data-link="show6/show1.html" data-tooltip="🐉 كونغ فو باندا">
-                <div class="thumbnail-img"><img src="img/dany5/dany04.jpg" alt=""></div>
+            <div class="thumbnail-item" data-index="2" id="thumb3">
+                <div class="thumbnail-img"><img id="img3" src="" alt=""></div>
             </div>
         </div>
     </div>
@@ -610,10 +660,14 @@
             <a href="#">الرئيسية</a><a href="#watch">شاهد الان</a><a href="#" id="navSeries">مسلسلات</a><a href="#" id="navMovies">أفلام</a>
         </div>
         <div class="search-container">
-            <div class="search-box">
+            <!-- أيقونة البحث الجديدة -->
+            <div class="search-icon-btn" id="searchIconBtn">
+                <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" fill="currentColor"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+            </div>
+            <!-- مربع البحث المخفي -->
+            <div class="search-box" id="searchBox">
                 <input type="text" id="searchInput" placeholder="ابحث عن فيلم أو مسلسل..." autocomplete="off">
                 <button id="searchBtn"><svg width="1.2em" height="1.2em" viewBox="0 0 512 512" fill="currentColor"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg></button>
-                <div class="search-suggestions" id="searchSuggestions"></div>
             </div>
             <button class="notify-btn" id="enableNotificationsBtn"><svg width="1.2em" height="1.2em" viewBox="0 0 448 512" fill="currentColor"><path d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z"/></svg></button>
             <button class="theme-btn" id="themeToggle"><svg width="1.2em" height="1.2em" viewBox="0 0 512 512" fill="currentColor"><path d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23C301.632 1.15 270.809 0 239.961 0 107.998 0 0 107.998 0 240c0 132.002 107.998 240 240 240h43.211z"/></svg></button>
@@ -875,7 +929,6 @@
             }
 
             const searchInput = document.getElementById('searchInput');
-            const suggestionsDiv = document.getElementById('searchSuggestions');
             searchInput.addEventListener('input', (e) => {
                 const q = e.target.value.trim().toLowerCase();
                 if (q === '') filterItems(currentFilter);
@@ -904,55 +957,174 @@
                 filterItems('all');
             });
 
+            // ---------- إدارة ظهور/إخفاء مربع البحث ----------
+            const searchIconBtn = document.getElementById('searchIconBtn');
+            const searchBox = document.getElementById('searchBox');
+
+            searchIconBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                searchBox.classList.toggle('active');
+                if (searchBox.classList.contains('active')) {
+                    searchInput.focus();
+                }
+            });
+
+            // إخفاء مربع البحث عند النقر خارجه
+            document.addEventListener('click', (e) => {
+                if (!searchBox.contains(e.target) && !searchIconBtn.contains(e.target)) {
+                    searchBox.classList.remove('active');
+                }
+            });
+
+            // منع إخفاء المربع عند النقر داخله
+            searchBox.addEventListener('click', (e) => e.stopPropagation());
+
+            // ---------- إدارة الأيقونات الثلاث مع تدوير تلقائي (من اليمين إلى اليسار) ----------
             const slides = document.querySelectorAll('.video-slide');
-            const thumbs = document.querySelectorAll('.thumbnail-item');
-            let currentSlide = 0,
-                interval;
+            const thumb1 = document.getElementById('thumb1');
+            const thumb2 = document.getElementById('thumb2');
+            const thumb3 = document.getElementById('thumb3');
+            const img1 = document.getElementById('img1');
+            const img2 = document.getElementById('img2');
+            const img3 = document.getElementById('img3');
 
-            function goToSlide(index) {
-                slides[currentSlide].classList.remove('active');
-                thumbs[currentSlide].classList.remove('active');
-                currentSlide = (index + slides.length) % slides.length;
-                slides[currentSlide].classList.add('active');
-                thumbs[currentSlide].classList.add('active');
-                slides.forEach((s, i) => {
-                    const v = s.querySelector('video');
-                    if (v) i === currentSlide ? v.play().catch(() => {}) : v.pause();
+            let currentStartIndex = 0; // فهرس أول فيلم من allItems يظهر في الأيقونة الأولى
+            let autoRotateInterval;
+            const totalItems = allItems.length;
+
+            // دالة لتحديث الأيقونات الثلاثة بناءً على startIndex (التمرير من اليمين لليسار)
+            function updateThumbnails(startIndex) {
+                // نأخذ 3 أفلام متتالية
+                const itemsToShow = [];
+                for (let i = 0; i < 3; i++) {
+                    const idx = (startIndex + i) % totalItems;
+                    itemsToShow.push(allItems[idx]);
+                }
+
+                // تطبيق تأثير التلاشي
+                [thumb1, thumb2, thumb3].forEach(thumb => {
+                    const imgDiv = thumb.querySelector('.thumbnail-img');
+                    imgDiv.classList.add('fade-out');
                 });
-                resetInterval();
+
+                setTimeout(() => {
+                    // تحديث الصورة والبيانات
+                    img1.src = itemsToShow[0].image;
+                    thumb1.dataset.link = itemsToShow[0].link;
+                    thumb1.dataset.tooltip = itemsToShow[0].title;
+
+                    img2.src = itemsToShow[1].image;
+                    thumb2.dataset.link = itemsToShow[1].link;
+                    thumb2.dataset.tooltip = itemsToShow[1].title;
+
+                    img3.src = itemsToShow[2].image;
+                    thumb3.dataset.link = itemsToShow[2].link;
+                    thumb3.dataset.tooltip = itemsToShow[2].title;
+
+                    // إزالة التلاشي
+                    [thumb1, thumb2, thumb3].forEach(thumb => {
+                        const imgDiv = thumb.querySelector('.thumbnail-img');
+                        imgDiv.classList.remove('fade-out');
+                    });
+
+                    // تعيين العنصر النشط (الوسط دائماً - الأيقونة الثانية)
+                    setActiveThumb(1);
+                }, 150);
             }
 
-            function nextSlide() {
-                goToSlide(currentSlide + 1);
+            // تعيين الأيقونة النشطة (دائماً الأوسط هو النشط)
+            function setActiveThumb(activeIndex) {
+                [thumb1, thumb2, thumb3].forEach((thumb, idx) => {
+                    if (idx === activeIndex) {
+                        thumb.classList.add('active');
+                    } else {
+                        thumb.classList.remove('active');
+                    }
+                });
+                // تغيير الفيديو بناءً على الفيلم النشط (الأوسط)
+                const activeItem = allItems[(currentStartIndex + 1) % totalItems];
+                const videoIndex = (currentStartIndex + 1) % slides.length;
+                slides.forEach((slide, i) => {
+                    if (i === videoIndex) {
+                        slide.classList.add('active');
+                        const v = slide.querySelector('video');
+                        if (v) v.play().catch(() => {});
+                    } else {
+                        slide.classList.remove('active');
+                        const v = slide.querySelector('video');
+                        if (v) v.pause();
+                    }
+                });
             }
 
-            function prevSlide() {
-                goToSlide(currentSlide - 1);
+            // دورة تلقائية: تحريك startIndex بمقدار 1 كل 5 ثوانٍ (لليسار)
+            function nextCarouselStep() {
+                currentStartIndex = (currentStartIndex + 1) % totalItems;
+                updateThumbnails(currentStartIndex);
             }
 
-            function resetInterval() {
-                clearInterval(interval);
-                interval = setInterval(nextSlide, 8000);
+            function startAutoRotate() {
+                if (autoRotateInterval) clearInterval(autoRotateInterval);
+                autoRotateInterval = setInterval(nextCarouselStep, 5000);
             }
-            thumbs.forEach((t, i) => t.addEventListener('click', () => {
-                playClick();
-                goToSlide(i);
-                const link = t.dataset.link;
-                if (link) window.open(link, '_blank');
-            }));
+
+            function stopAutoRotate() {
+                clearInterval(autoRotateInterval);
+            }
+
+            // إعداد الأيقونات الأولية
+            updateThumbnails(0);
+            startAutoRotate();
+
+            // إضافة مستمعي الأحداث للأيقونات (النقر)
+            [thumb1, thumb2, thumb3].forEach((thumb, idx) => {
+                thumb.addEventListener('click', (e) => {
+                    playClick();
+                    const link = thumb.dataset.link;
+                    if (link) window.open(link, '_blank');
+
+                    // عند النقر على أي أيقونة، نجعلها الوسط (نعدل startIndex بحيث يصبح العنصر المنقور في المنتصف)
+                    // نحسب الفرق بين العنصر المنقور والوسط (1)
+                    const clickedIndex = (currentStartIndex + idx) % totalItems;
+                    const targetStart = (clickedIndex - 1 + totalItems) % totalItems;
+                    currentStartIndex = targetStart;
+                    updateThumbnails(currentStartIndex);
+
+                    // إيقاف التدوير مؤقتاً ثم إعادة تشغيله
+                    stopAutoRotate();
+                    startAutoRotate();
+                });
+
+                // عند التحويم أو اللمس نوقف التدوير مؤقتاً
+                thumb.addEventListener('mouseenter', stopAutoRotate);
+                thumb.addEventListener('mouseleave', startAutoRotate);
+                thumb.addEventListener('touchstart', stopAutoRotate, {
+                    passive: true
+                });
+                thumb.addEventListener('touchend', startAutoRotate);
+            });
+
+            // إيقاف التدوير عند التفاعل مع السلايدر (اختياري)
             const hero = document.querySelector('.hero-video-container');
-            hero.addEventListener('mouseenter', () => clearInterval(interval));
-            hero.addEventListener('mouseleave', resetInterval);
             let touchX = 0;
             hero.addEventListener('touchstart', e => touchX = e.changedTouches[0].screenX, {
                 passive: true
             });
             hero.addEventListener('touchend', e => {
                 const diff = e.changedTouches[0].screenX - touchX;
-                if (diff < -50) nextSlide();
-                else if (diff > 50) prevSlide();
+                if (diff < -50) {
+                    nextCarouselStep();
+                    stopAutoRotate();
+                    startAutoRotate();
+                } else if (diff > 50) {
+                    currentStartIndex = (currentStartIndex - 1 + totalItems) % totalItems;
+                    updateThumbnails(currentStartIndex);
+                    stopAutoRotate();
+                    startAutoRotate();
+                }
             });
-            resetInterval();
+
+            // ---------- نهاية إدارة الأيقونات ----------
 
             const notifyBtn = document.getElementById('enableNotificationsBtn');
             if ('serviceWorker' in navigator && 'PushManager' in window) {
