@@ -160,13 +160,17 @@
             color: var(--text-primary);
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         }
+        /* شريط التنقل باستخدام Grid لتوزيع متساوٍ تمامًا */
         
         .nav {
-            display: flex;
-            gap: 0.8rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            /* ثلاثة أعمدة متساوية */
+            gap: 0.5rem;
             flex: 1;
-            /* يأخذ المساحة المتاحة */
-            justify-content: center;
+            max-width: 400px;
+            /* عرض أقصى اختياري */
+            margin: 0 auto;
         }
         
         .nav a {
@@ -174,13 +178,11 @@
             text-decoration: none;
             font-weight: 700;
             white-space: nowrap;
-            flex: 1;
-            /* كل رابط يأخذ حيزًا متساويًا */
             text-align: center;
             padding: 0.4rem 0.2rem;
             font-size: 1.1rem;
             min-width: 0;
-            /* يسمح بالانكماش إذا لزم الأمر لكن مع white-space: nowrap لن ينكسر */
+            /* يسمح بالانكماش داخل العمود */
         }
         
         .search-container {
@@ -595,14 +597,12 @@
             .nav {
                 order: 3;
                 width: 100%;
-                justify-content: space-around;
-                /* توزيع متساوٍ على الشاشات الصغيرة */
+                max-width: none;
+                /* إزالة الحد الأقصى */
             }
             .nav a {
                 font-size: 1rem;
                 padding: 0.3rem 0.1rem;
-                flex: 1 1 0;
-                /* توزيع متساوٍ */
             }
             .thumbnail-item {
                 width: 80px;
