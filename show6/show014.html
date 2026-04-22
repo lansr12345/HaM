@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -33,7 +32,6 @@
     <meta property="og:description" content="شاهد كرتون الفار الطباخ كامل بجودة HD، قصة ريمي الفأر الصغير الذي يحقق حلمه في أن يصبح طباخاً كبيراً. كرتون كوميدي ومغامرات حائز على جائزة الأوسكار.">
     <meta property="og:image" content="https://lansr12345.github.io/HaM/img/dany5/dany035.jpg">
     <meta property="og:image:width" content="1200">
-    <meta property="og:13:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="HaM كرتون">
     <meta property="og:locale" content="ar_AR">
@@ -219,10 +217,14 @@
             };
             window.toggleMode = () => { document.body.classList.toggle('light-mode'); };
             window.toggleFullscreen = () => { const elem = document.querySelector('.screen-legend'); if (!document.fullscreenElement) elem.requestFullscreen(); else document.exitFullscreen(); };
+            
+            // ========== دوال التنقل المعدلة ==========
             const TOTAL_MOVIES = 20;
             function getCurrentMovieNumber() { const match = window.location.pathname.match(/show(\d+)\.html$/); return match ? parseInt(match[1], 10) : 1; }
-            window.goToNext = function() { let next = getCurrentMovieNumber() + 1; if (next > TOTAL_MOVIES) next = 1; window.location.href = `show${next}.html`; };
-            window.goToPrev = function() { let prev = getCurrentMovieNumber() - 1; if (prev < 1) prev = TOTAL_MOVIES; window.location.href = `show${prev}.html`; };
+            function formatShowNumber(num) { if (num >= 11) { return 'show' + num.toString().padStart(3, '0') + '.html'; } else { return 'show' + num + '.html'; } }
+            window.goToNext = function() { let next = getCurrentMovieNumber() + 1; if (next > TOTAL_MOVIES) next = 1; window.location.href = formatShowNumber(next); };
+            window.goToPrev = function() { let prev = getCurrentMovieNumber() - 1; if (prev < 1) prev = TOTAL_MOVIES; window.location.href = formatShowNumber(prev); };
+            
             const title = document.getElementById('movieTitle');
             if (title) {
                 title.addEventListener('mousemove', (e) => { const rect = title.getBoundingClientRect(); const centerX = rect.left + rect.width/2; const centerY = rect.top + rect.height/2; const rotateY = ((e.clientX - centerX) / (rect.width/2)) * 5; const rotateX = -((e.clientY - centerY) / (rect.height/2)) * 5; title.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) skewX(-2deg)`; title.style.textShadow = `${Math.abs(rotateY)*2+10}px ${Math.abs(rotateX)*2+10}px 0 #151515, 2px 2px 15px #000000b0`; });
