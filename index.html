@@ -215,7 +215,9 @@
             padding: 0.5rem;
             outline: none;
             font-size: 1rem;
+            width: 200px;        /* عرض ثابت */
             min-width: 200px;
+            max-width: 200px;
         }
         .search-box button {
             background: transparent;
@@ -509,13 +511,13 @@
             }
             .logo {
                 grid-area: logo;
-                justify-self: end;    /* أقصى اليسار */
+                justify-self: end;
                 font-size: 1.2rem;
                 white-space: nowrap;
             }
             .search-container {
                 grid-area: icons;
-                justify-self: start;  /* أقصى اليمين */
+                justify-self: start;
                 gap: 0.2rem;
                 margin: 0;
             }
@@ -548,7 +550,7 @@
                 right: 50px;
                 transform-origin: right;
             }
-            .search-box input { min-width: 150px; }
+            /* حذف أي تعديل على عرض input لأنه محدد بشكل ثابت أعلاه */
         }
         @media (max-width: 500px) {
             .cartoon-grid { grid-template-columns: repeat(2, 1fr); }
