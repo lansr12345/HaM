@@ -215,9 +215,7 @@
             padding: 0.5rem;
             outline: none;
             font-size: 1rem;
-            width: 200px;        /* عرض ثابت */
             min-width: 200px;
-            max-width: 200px;
         }
         .search-box button {
             background: transparent;
@@ -496,7 +494,7 @@
         @media (max-width: 900px) {
             .cartoon-grid { grid-template-columns: repeat(4, 1fr); }
         }
-        /* وضع الهاتف - التصميم الصحيح */
+        /* وضع الهاتف */
         @media (max-width: 700px) {
             .cartoon-grid { grid-template-columns: repeat(3, 1fr); }
             .header {
@@ -545,12 +543,21 @@
             }
             .thumbnail-item { width: 80px; }
             .card:hover { transform: scale(1.08); }
+            
+            /* تعديل صندوق البحث ليظهر في منتصف الشاشة مع الحفاظ على حجمه */
             .search-box {
-                left: auto;
-                right: 50px;
-                transform-origin: right;
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) scaleX(0) !important;
+                transform-origin: center !important;
             }
-            /* حذف أي تعديل على عرض input لأنه محدد بشكل ثابت أعلاه */
+            .search-box.active {
+                transform: translateX(-50%) scaleX(1) !important;
+            }
+            .search-box input { 
+                min-width: 200px; 
+                width: 100%;
+            }
         }
         @media (max-width: 500px) {
             .cartoon-grid { grid-template-columns: repeat(2, 1fr); }
@@ -558,6 +565,8 @@
             .section { padding: 0 0.8rem; }
             .card .overlay h3 { font-size: 1rem; }
             .play-btn { width: 50px; height: 50px; font-size: 1.3rem; }
+            /* ضمان اتساق صندوق البحث على الشاشات الصغيرة */
+            .search-box input { min-width: 180px; }
         }
     </style>
 </head>
