@@ -58,30 +58,8 @@
     <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
     <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
 
-    <!-- ========== تعريف الخط محلياً لضبط حجم الخط الاحتياطي ========== -->
-    <style>
-        /* تعريف خط Cairo مع ضبط size-adjust ليطابق الخط الاحتياطي */
-        @font-face {
-            font-family: 'Cairo Fallback';
-            src: local('Cairo'), local('Cairo-Regular');
-            size-adjust: 105%; /* تعويض فرق العرض بين Arial و Cairo */
-            ascent-override: 90%;
-            descent-override: 25%;
-            font-display: swap;
-        }
-        
-        @font-face {
-            font-family: 'Cairo';
-            src: url('https://fonts.gstatic.com/s/cairo/v28/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscQyyS4J0.woff2') format('woff2');
-            font-weight: 400 900;
-            font-style: normal;
-            font-display: swap;
-        }
-    </style>
-
-    <!-- تحميل الخط بشكل طبيعي (يُفضل بعد تعريف @font-face) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
+    <!-- لا نحتاج لتحميل أي خط خارجي - سنستخدم خطوط النظام فقط لضمان الثبات التام -->
+    
     <style>
         /* ========== أساسيات ========== */
         
@@ -126,7 +104,8 @@
         }
         
         body {
-            font-family: 'Cairo', 'Cairo Fallback', sans-serif;
+            /* استخدام خطوط النظام العربية الممتازة */
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
             background: radial-gradient(circle at 20% 30%, var(--bg-grad-start), var(--bg-grad-end));
             color: var(--text-primary);
             min-height: 100vh;
@@ -183,6 +162,7 @@
             font-weight: 900;
             color: var(--text-primary);
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.5px;
         }
         
         .nav {
@@ -199,11 +179,11 @@
         .nav a {
             color: var(--text-primary);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;  /* زيادة الوزن ليطابق مظهر Cairo */
             white-space: nowrap;
-            min-width: 75px;  /* عرض ثابت كافٍ لأطول كلمة "مسلسلات" */
+            min-width: 75px;    /* عرض ثابت كافٍ لأطول كلمة "مسلسلات" */
             text-align: center;
-            letter-spacing: 0.2px;
+            letter-spacing: -0.2px;  /* تحسين التباعد ليشبه الخط العربي */
         }
         
         .search-container {
