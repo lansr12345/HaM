@@ -494,40 +494,40 @@
         @media (max-width: 900px) {
             .cartoon-grid { grid-template-columns: repeat(4, 1fr); }
         }
-        /* وضع الهاتف مع مسافة 60px بين الأيقونات والشعار */
+        /* وضع الهاتف: صفان - الصف الأول: أيقونات يمين، شعار يسار (نفس السطر) */
         @media (max-width: 700px) {
             .cartoon-grid { grid-template-columns: repeat(3, 1fr); }
             .header {
                 padding: 0.4rem 1rem;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
+                display: grid;
+                grid-template-columns: auto 1fr; /* عمود للأيقونات، عمود للشعار */
                 align-items: center;
-                gap: 20px;
+                gap: 10px;
             }
             .logo {
-                order: 2;
+                grid-column: 2;
+                justify-self: end;   /* أقصى اليسار */
                 font-size: 1.2rem;
-                margin-left: auto;
+                white-space: nowrap;
+                margin-left: 0;
             }
             .search-container {
-                order: 1;
+                grid-column: 1;
+                justify-self: start; /* أقصى اليمين */
                 gap: 0.2rem;
-                margin: 0;
-                padding: 0;
-                margin-right: 60px; /* تم تغيير المسافة إلى 60px */
+                margin-right: 0;      /* نعتمد على المسافة من grid gap */
             }
             .search-icon-btn, .notify-btn, .theme-btn {
                 width: 32px;
                 height: 32px;
             }
             .nav {
-                order: 3;
-                width: 100%;
+                grid-column: 1 / -1;
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
                 gap: 0.4rem;
                 margin-top: 2px;
+                width: 100%;
             }
             .nav a {
                 min-width: 0;
