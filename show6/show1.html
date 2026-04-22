@@ -133,6 +133,8 @@
             0%,100% { opacity: 1; }
             50% { opacity: 0.6; }
         }
+
+        /* عنوان الفيلم بتأثير ثلاثي الأبعاد (Tilt) */
         .title-legend {
             font-size: 72px;
             font-weight: 900;
@@ -143,20 +145,21 @@
             text-shadow: 10px 10px 0 #151515, 2px 2px 15px #000000b0;
             letter-spacing: 8px;
             word-break: break-word;
-            transform: skewX(-2deg);
-            transition: transform 0.3s;
-        }
-        .title-legend:hover {
-            transform: skewX(0deg) scale(1.01);
-            text-shadow: 15px 15px 0 #000000e0;
+            transition: transform 0.1s ease-out, text-shadow 0.3s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            display: inline-block;
+            padding: 0 10px;
         }
         .title-legend span {
             color: #c9a96b;
             text-shadow: 10px 10px 0 #151515;
+            display: inline-block;
         }
         body.light-mode .title-legend {
             text-shadow: 8px 8px 0 #bbbbbb;
         }
+
         .info-strip-legend {
             display: flex;
             flex-wrap: wrap;
@@ -356,7 +359,7 @@
 <div class="legendary-stage">
     <!-- رأس المسرح -->
     <div class="legendary-header">
-        <div class="theater-title">🎭 SHADOW LEGEND</div>
+        <div class="theater-title">🎭 HaM كرتون</div>
         <div class="legendary-utils">
             <a href="https://lansr12345.github.io/HaM/" class="util-btn-legend">🏠</a>
             <div class="util-btn-legend" onclick="toggleMode()">◐</div>
@@ -372,8 +375,8 @@
         <div class="loader-legend" id="loading-indicator">⚡ رفع الستار...</div>
     </div>
 
-    <!-- عنوان الفيلم -->
-    <h1 class="title-legend">كونغ فو <span>باندا</span></h1>
+    <!-- عنوان الفيلم بتأثير Tilt -->
+    <h1 class="title-legend" id="movieTitle">كونغ فو <span>باندا</span></h1>
 
     <!-- أزرار التحكم (تسلسل رقمي) -->
     <div class="nav-legend">
@@ -496,17 +499,41 @@
         window.goToNext = function() {
             let current = getCurrentMovieNumber();
             let next = current + 1;
-            if (next > TOTAL_MOVIES) next = 1; // دائري
+            if (next > TOTAL_MOVIES) next = 1;
             window.location.href = `show${next}.html`;
         };
 
         window.goToPrev = function() {
             let current = getCurrentMovieNumber();
             let prev = current - 1;
-            if (prev < 1) prev = TOTAL_MOVIES; // دائري
+            if (prev < 1) prev = TOTAL_MOVIES;
             window.location.href = `show${prev}.html`;
         };
         // ----------------------------------------
+
+        // ---------- تأثير Tilt لعنوان الفيلم ----------
+        const title = document.getElementById('movieTitle');
+        if (title) {
+            title.addEventListener('mousemove', (e) => {
+                const rect = title.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const mouseX = e.clientX - centerX;
+                const mouseY = e.clientY - centerY;
+                
+                const rotateY = (mouseX / (rect.width / 2)) * 5; // أقصى دوران 5deg
+                const rotateX = -(mouseY / (rect.height / 2)) * 5;
+                
+                title.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) skewX(-2deg)`;
+                title.style.textShadow = `${Math.abs(rotateY)*2 + 10}px ${Math.abs(rotateX)*2 + 10}px 0 #151515, 2px 2px 15px #000000b0`;
+            });
+            
+            title.addEventListener('mouseleave', () => {
+                title.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) skewX(-2deg)';
+                title.style.textShadow = '10px 10px 0 #151515, 2px 2px 15px #000000b0';
+            });
+        }
+        // ---------------------------------------------
 
         window.onload = ()=> setServer(1);
     })();
