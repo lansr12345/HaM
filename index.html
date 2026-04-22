@@ -544,18 +544,19 @@
             .thumbnail-item { width: 80px; }
             .card:hover { transform: scale(1.08); }
             
-            /* صندوق البحث يظهر في منتصف الشاشة بحجم صغير مناسب */
+            /* صندوق البحث في منتصف الشاشة بتوسيط تام */
             .search-box {
-                left: 50% !important;
-                right: auto !important;
-                transform: translateX(-50%) scaleX(0) !important;
+                left: 0 !important;
+                right: 0 !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                width: 200px !important;
+                max-width: 90vw;
+                transform: scaleX(0) !important;
                 transform-origin: center !important;
-                width: auto !important;
-                min-width: 160px !important;
-                max-width: 220px !important;
             }
             .search-box.active {
-                transform: translateX(-50%) scaleX(1) !important;
+                transform: scaleX(1) !important;
             }
             .search-box input {
                 min-width: 0 !important;
