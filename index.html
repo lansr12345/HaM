@@ -487,18 +487,12 @@
         }
         
         .card:hover .overlay,
-        .card:active .overlay {
+        .card.show-overlay .overlay {
             opacity: 1;
             transform: translateY(0);
         }
         
-        @media (hover: none) {
-            .card .overlay {
-                opacity: 1;
-                transform: translateY(0);
-                background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
-            }
-        }
+        /* تم حذف قاعدة @media (hover: none) لجعل الأوفرلاي يظهر فقط باللمس أو التحويم */
         
         .play-wrapper {
             flex: 1;
@@ -872,6 +866,20 @@
                         const btn = card.querySelector('.play-btn');
                         if (btn) openLink(btn.dataset.link);
                     });
+
+                    // دعم اللمس: إظهار الأوفرلاي عند الضغط (بدون الحاجة للتحويم)
+                    card.addEventListener('touchstart', function(e) {
+                        // لا نمنع الحدث الافتراضي للسماح بالتمرير
+                        this.classList.add('show-overlay');
+                    }, { passive: true });
+                    
+                    card.addEventListener('touchend', function(e) {
+                        this.classList.remove('show-overlay');
+                    });
+                    
+                    card.addEventListener('touchcancel', function(e) {
+                        this.classList.remove('show-overlay');
+                    });
                 });
             }
 
@@ -966,7 +974,6 @@
                 e.preventDefault();
                 filterItems('all');
             });
-            // تم حذف الرابط "شاهد الان" وبالتالي إزالة مستمع الحدث الخاص به
 
             // ---------- إدارة ظهور/إخفاء مربع البحث ----------
             const searchIconBtn = document.getElementById('searchIconBtn');
