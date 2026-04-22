@@ -58,8 +58,8 @@
     <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
     <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
 
-    <!-- خط القاهرة مع تحسين التحميل -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- خط القاهرة مع تحسين التحميل لتجنب إعادة التنسيق -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=optional" rel="stylesheet">
 
     <style>
         /* ========== أساسيات ========== */
@@ -167,6 +167,7 @@
         .nav {
             display: flex;
             gap: 1.5rem;
+            flex-wrap: nowrap;  /* منع الالتفاف في جميع الأحوال */
         }
         /* تثبيت ترتيب العناصر يدويًا لتجنب العشوائية أثناء تحميل الخط */
         .nav a:nth-child(1) { order: 1; }
@@ -179,6 +180,9 @@
             text-decoration: none;
             font-weight: 600;
             white-space: nowrap; /* يمنع انكسار النص أثناء التحميل */
+            min-width: fit-content; /* يضمن ثبات العرض التقريبي */
+            text-align: center;
+            letter-spacing: 0.3px;  /* تعويض طفيف لاختلاف الخطوط */
         }
         
         .search-container {
@@ -602,6 +606,10 @@
                 order: 3;
                 width: 100%;
                 justify-content: center;
+                flex-wrap: wrap; /* في الجوال نسمح بالالتفاف إذا لزم الأمر، لكن سنضبط العروض */
+            }
+            .nav a {
+                min-width: 60px; /* قيمة تقريبية لضبط العرض */
             }
             .thumbnail-item {
                 width: 80px;
