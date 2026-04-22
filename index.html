@@ -544,18 +544,21 @@
             .thumbnail-item { width: 80px; }
             .card:hover { transform: scale(1.08); }
             
-            /* تعديل صندوق البحث ليظهر في منتصف الشاشة مع الحفاظ على حجمه */
+            /* صندوق البحث يظهر في منتصف الشاشة بحجم صغير مناسب */
             .search-box {
                 left: 50% !important;
                 right: auto !important;
                 transform: translateX(-50%) scaleX(0) !important;
                 transform-origin: center !important;
+                width: auto !important;
+                min-width: 160px !important;
+                max-width: 220px !important;
             }
             .search-box.active {
                 transform: translateX(-50%) scaleX(1) !important;
             }
-            .search-box input { 
-                min-width: 200px; 
+            .search-box input {
+                min-width: 0 !important;
                 width: 100%;
             }
         }
@@ -565,8 +568,6 @@
             .section { padding: 0 0.8rem; }
             .card .overlay h3 { font-size: 1rem; }
             .play-btn { width: 50px; height: 50px; font-size: 1.3rem; }
-            /* ضمان اتساق صندوق البحث على الشاشات الصغيرة */
-            .search-box input { min-width: 180px; }
         }
     </style>
 </head>
