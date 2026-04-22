@@ -494,35 +494,37 @@
         @media (max-width: 900px) {
             .cartoon-grid { grid-template-columns: repeat(4, 1fr); }
         }
-        /* وضع الهاتف: صفان - الصف الأول: أيقونات يمين، شعار يسار (نفس السطر) */
+        /* وضع الهاتف - التصميم الصحيح */
         @media (max-width: 700px) {
             .cartoon-grid { grid-template-columns: repeat(3, 1fr); }
             .header {
                 padding: 0.4rem 1rem;
                 display: grid;
-                grid-template-columns: auto 1fr; /* عمود للأيقونات، عمود للشعار */
+                grid-template-areas: 
+                    "icons logo"
+                    "nav nav";
+                grid-template-columns: auto 1fr;
                 align-items: center;
-                gap: 10px;
+                gap: 10px 5px;
             }
             .logo {
-                grid-column: 2;
-                justify-self: end;   /* أقصى اليسار */
+                grid-area: logo;
+                justify-self: end;    /* أقصى اليسار */
                 font-size: 1.2rem;
                 white-space: nowrap;
-                margin-left: 0;
             }
             .search-container {
-                grid-column: 1;
-                justify-self: start; /* أقصى اليمين */
+                grid-area: icons;
+                justify-self: start;  /* أقصى اليمين */
                 gap: 0.2rem;
-                margin-right: 0;      /* نعتمد على المسافة من grid gap */
+                margin: 0;
             }
             .search-icon-btn, .notify-btn, .theme-btn {
                 width: 32px;
                 height: 32px;
             }
             .nav {
-                grid-column: 1 / -1;
+                grid-area: nav;
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
                 gap: 0.4rem;
@@ -574,7 +576,7 @@
 
     <!-- Header -->
     <header class="header">
-        <div class="logo"> HaM كرتون</div>
+        <div class="logo">🎬 HaM كرتون</div>
         <div class="nav">
             <a href="#">الرئيسية</a>
             <a href="#" id="navSeries">مسلسلات</a>
