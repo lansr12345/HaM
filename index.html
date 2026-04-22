@@ -174,7 +174,6 @@
         .nav a:nth-child(1) { order: 1; }
         .nav a:nth-child(2) { order: 2; }
         .nav a:nth-child(3) { order: 3; }
-        .nav a:nth-child(4) { order: 4; }
         
         .nav a {
             color: var(--text-primary);
@@ -618,11 +617,11 @@
             .card:hover {
                 transform: scale(1.08);
             }
-            /* تعديل مربع البحث على الهاتف: ينعكس الاتجاه ليفتح من اليمين */
+            /* مربع البحث على الهاتف: يحافظ على نفس سلوك اللاب توب (يفتح من اليسار) */
             .search-box {
-                left: auto;
-                right: 50px;
-                transform-origin: right;
+                left: 50px;
+                right: auto;
+                transform-origin: left;
             }
             .search-box input {
                 min-width: 150px;  /* تصغير الحجم قليلاً للهاتف */
@@ -670,7 +669,9 @@
     <header class="header">
         <div class="logo">🎬 HaM كرتون</div>
         <div class="nav">
-            <a href="#">الرئيسية</a><a href="#watch">شاهد الان</a><a href="#" id="navSeries">مسلسلات</a><a href="#" id="navMovies">أفلام</a>
+            <a href="#">الرئيسية</a>
+            <a href="#" id="navSeries">مسلسلات</a>
+            <a href="#" id="navMovies">أفلام</a>
         </div>
         <div class="search-container">
             <!-- أيقونة البحث الجديدة -->
@@ -965,10 +966,7 @@
                 e.preventDefault();
                 filterItems('all');
             });
-            document.querySelector('.nav a[href="#watch"]').addEventListener('click', e => {
-                e.preventDefault();
-                filterItems('all');
-            });
+            // تم حذف الرابط "شاهد الان" وبالتالي إزالة مستمع الحدث الخاص به
 
             // ---------- إدارة ظهور/إخفاء مربع البحث ----------
             const searchIconBtn = document.getElementById('searchIconBtn');
