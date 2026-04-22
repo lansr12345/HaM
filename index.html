@@ -362,11 +362,13 @@
             margin: 0 auto 4rem;
             padding: 0 1.5rem;
             z-index: 2;
+            touch-action: pan-y; /* السماح بالتمرير العمودي */
         }
         .cartoon-grid {
             display: grid;
             grid-template-columns: repeat(6, minmax(0, 1fr));
             gap: 1.2rem;
+            touch-action: pan-y; /* يمنع المتصفح من اعتبار السحب الأفقي تمريراً */
         }
         .card {
             position: relative;
@@ -689,26 +691,41 @@
             searchBox.addEventListener('click', (e) => e.stopPropagation());
 
             // ---------- دعم السحب (Swipe) على شبكة الكروت للتنقل بين الصفحات ----------
-            const grid = document.getElementById('mainGrid');
-            let touchStartX = 0;
-            let touchEndX = 0;
-            const swipeThreshold = 50; // الحد الأدنى لاعتبار الحركة سحباً
+            const watchSection = document.getElementById('watch');
+            let touchStartX = 0, touchStartY = 0;
+            let isSwiping = false;
+            const swipeThreshold = 40;
 
-            grid.addEventListener('touchstart', (e) => {
+            watchSection.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+                isSwiping = true;
             }, { passive: true });
 
-            grid.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            });
+            watchSection.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                const currentX = e.changedTouches[0].screenX;
+                const currentY = e.changedTouches[0].screenY;
+                const diffX = currentX - touchStartX;
+                const diffY = currentY - touchStartY;
+                // إذا كانت الحركة أفقية أكثر من رأسية، نمنع التمرير الافتراضي
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
 
-            function handleSwipe() {
-                const diff = touchEndX - touchStartX;
-                if (Math.abs(diff) < swipeThreshold) return;
+            watchSection.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                const touchEndX = e.changedTouches[0].screenX;
+                const diffX = touchEndX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+
+                // التأكد من أنها حركة أفقية بشكل رئيسي
+                if (Math.abs(diffX) < swipeThreshold || Math.abs(diffX) < Math.abs(diffY)) return;
 
                 const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
-                if (diff > 0) {
+                if (diffX > 0) {
                     // سحب لليمين (في RTL يعني الصفحة السابقة)
                     if (currentPage > 1) {
                         currentPage--;
@@ -723,7 +740,7 @@
                         playClick();
                     }
                 }
-            }
+            });
 
             // Carousel
             const slides = document.querySelectorAll('.video-slide');
