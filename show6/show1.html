@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>كونغ فو باندا · مسرح الظلال الأسطوري</title>
     <meta name="description" content="تجربة مشاهدة بتأثيرات ظلال سينمائية مطورة">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-    <script>
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I'||e.key==='J')) || (e.ctrlKey && e.key === 'u')) e.preventDefault();
-        });
-    </script>
     <link rel="icon" href="../icons/favicon.ico">
     <link rel="apple-touch-icon" href="../icons/icon-192x192.png">
     <link rel="manifest" href="../manifest.json">
@@ -19,7 +14,13 @@
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
     <style>
         /* ========== مسرح الظلال: المستوى الأسطوري ========== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Cairo', sans-serif;
             background: #0a0a0a;
@@ -30,36 +31,22 @@
             justify-content: center;
             padding: 20px;
             transition: background 0.3s;
-            background-image: 
-                repeating-linear-gradient(45deg, #111 0px, #111 2px, transparent 2px, transparent 8px),
-                radial-gradient(circle at 30% 40%, #1a1a1a 0%, transparent 50%);
-            animation: bgPulse 10s infinite alternate;
+            background-image: repeating-linear-gradient(45deg, #111 0px, #111 2px, transparent 2px, transparent 8px), radial-gradient(circle at 30% 40%, #1a1a1a 0%, transparent 50%);
         }
-        @keyframes bgPulse {
-            0% { opacity: 0.8; }
-            100% { opacity: 1; }
-        }
+        
         body.light-mode {
             background: #e8e8e8;
             color: #1a1a1a;
-            background-image: 
-                repeating-linear-gradient(45deg, #ccc 0px, #ccc 2px, transparent 2px, transparent 8px),
-                radial-gradient(circle at 30% 40%, #f0f0f0 0%, transparent 50%);
+            background-image: repeating-linear-gradient(45deg, #ccc 0px, #ccc 2px, transparent 2px, transparent 8px), radial-gradient(circle at 30% 40%, #f0f0f0 0%, transparent 50%);
         }
-        /* حاوية المسرح بتأثير دخول درامي */
+        
         .legendary-stage {
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
-            animation: curtainRise 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
-        @keyframes curtainRise {
-            0% { opacity: 0; transform: translateY(60px) scale(0.95); filter: blur(5px); }
-            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-        }
-
-        /* شريط علوي بإضاءة خافتة */
+        
         .legendary-header {
             display: flex;
             justify-content: space-between;
@@ -69,6 +56,7 @@
             border-bottom: 2px solid #3a3a3a;
             padding-bottom: 15px;
         }
+        
         .theater-title {
             font-size: 26px;
             font-weight: 900;
@@ -78,14 +66,23 @@
             text-shadow: 4px 4px 0 #00000080;
             animation: flicker 3s infinite alternate;
         }
+        
         @keyframes flicker {
-            0% { opacity: 0.9; text-shadow: 4px 4px 0 #00000080; }
-            100% { opacity: 1; text-shadow: 6px 6px 0 #000000b0; }
+            0% {
+                opacity: 0.9;
+                text-shadow: 4px 4px 0 #00000080;
+            }
+            100% {
+                opacity: 1;
+                text-shadow: 6px 6px 0 #000000b0;
+            }
         }
+        
         .legendary-utils {
             display: flex;
             gap: 15px;
         }
+        
         .util-btn-legend {
             background: none;
             border: 2px solid #808080;
@@ -99,8 +96,9 @@
             align-items: center;
             justify-content: center;
             box-shadow: 5px 5px 0 #00000060;
-            transform: translate(0,0);
+            transform: translate(0, 0);
         }
+        
         .util-btn-legend:hover {
             background: #ffffff10;
             border-color: #c0c0c0;
@@ -108,12 +106,12 @@
             box-shadow: 8px 8px 0 #00000080;
             transform: translate(-2px, -2px);
         }
+        
         .util-btn-legend:active {
             box-shadow: 2px 2px 0 #000;
             transform: translate(3px, 3px);
         }
-
-        /* إطار الشاشة بتأثير عمق */
+        
         .screen-legend {
             position: relative;
             border: 5px solid #2e2e2e;
@@ -123,34 +121,21 @@
             transition: box-shadow 0.4s;
             transform: rotate(0deg);
         }
+        
         .screen-legend:hover {
             box-shadow: 40px 40px 0 #000000d0, inset 0 0 70px #000;
             transform: rotate(-0.5deg);
         }
-        #video-frame, #offline-video {
+        
+        #video-frame,
+        #offline-video {
             width: 100%;
             aspect-ratio: 16/9;
             display: block;
             border: none;
             background: #000;
         }
-        /* ستائر متحركة */
-        .curtain-left, .curtain-right {
-            position: absolute;
-            top: 0;
-            width: 40px;
-            height: 100%;
-            background: repeating-linear-gradient(90deg, #1a1a1a, #1a1a1a 15px, #0f0f0f 15px, #0f0f0f 30px);
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 6;
-            transition: width 0.4s;
-        }
-        .curtain-left { left: 0; border-right: 2px solid #c9a96b; }
-        .curtain-right { right: 0; border-left: 2px solid #c9a96b; }
-        .screen-legend:hover .curtain-left,
-        .screen-legend:hover .curtain-right { width: 60px; opacity: 0.7; }
-
+        
         .loader-legend {
             position: absolute;
             bottom: 25px;
@@ -167,12 +152,17 @@
             box-shadow: 10px 10px 0 #00000080;
             animation: blinkLoader 1.5s infinite;
         }
+        
         @keyframes blinkLoader {
-            0%,100% { opacity: 1; }
-            50% { opacity: 0.6; }
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
         }
-
-        /* عنوان الفيلم بتأثير ضخم */
+        
         .title-legend {
             font-size: 72px;
             font-weight: 900;
@@ -186,19 +176,21 @@
             transform: skewX(-2deg);
             transition: transform 0.3s;
         }
+        
         .title-legend:hover {
             transform: skewX(0deg) scale(1.01);
             text-shadow: 15px 15px 0 #000000e0;
         }
+        
         .title-legend span {
             color: #c9a96b;
             text-shadow: 10px 10px 0 #151515;
         }
+        
         body.light-mode .title-legend {
             text-shadow: 8px 8px 0 #bbbbbb;
         }
-
-        /* شريط المعلومات بتأثير اهتزاز خفيف */
+        
         .info-strip-legend {
             display: flex;
             flex-wrap: wrap;
@@ -209,6 +201,7 @@
             padding: 18px 0;
             justify-content: space-around;
         }
+        
         .info-item-legend {
             font-weight: 900;
             font-size: 20px;
@@ -218,20 +211,30 @@
             transition: 0.2s;
             animation: subtleShake 5s infinite;
         }
+        
         @keyframes subtleShake {
-            0%,100% { transform: translateX(0); }
-            2% { transform: translateX(-2px); }
-            4% { transform: translateX(2px); }
-            6% { transform: translateX(0); }
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            2% {
+                transform: translateX(-2px);
+            }
+            4% {
+                transform: translateX(2px);
+            }
+            6% {
+                transform: translateX(0);
+            }
         }
-
-        /* سيرفرات كأزرار حجرية بتأثيرات ضغط محسنة */
+        
         .server-block-legend {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
             margin: 40px 0;
         }
+        
         .server-btn-legend {
             background: #181818;
             border: 4px solid #4a4a4a;
@@ -246,8 +249,9 @@
             flex: 1 0 100px;
             text-align: center;
             letter-spacing: 2px;
-            transform: translate(0,0);
+            transform: translate(0, 0);
         }
+        
         .server-btn-legend.active {
             background: #c9a96b;
             border-color: #ebd5a8;
@@ -255,19 +259,20 @@
             box-shadow: 16px 16px 0 #000000e0;
             transform: translate(-4px, -4px);
         }
+        
         .server-btn-legend:hover {
             background: #2a2a2a;
             border-color: #a0a0a0;
             box-shadow: 14px 14px 0 #000;
             transform: translate(-2px, -2px);
         }
+        
         .server-btn-legend:active {
             box-shadow: 4px 4px 0 #0a0a0a;
             transform: translate(8px, 8px);
             transition: 0.05s;
         }
-
-        /* وصف بظلال متداخلة */
+        
         .desc-legend {
             background: #121212;
             border: 3px solid #3a3a3a;
@@ -277,11 +282,13 @@
             box-shadow: 20px 20px 0 #000000b0, inset 0 0 30px #00000060;
             transition: 0.3s;
         }
+        
         .desc-legend:hover {
             border-right-width: 30px;
             box-shadow: 30px 30px 0 #000000d0, inset 0 0 50px #000;
             transform: translateX(-5px);
         }
+        
         .quote-legend {
             font-size: 32px;
             font-weight: 900;
@@ -289,8 +296,7 @@
             margin-bottom: 20px;
             text-shadow: 4px 4px 0 #00000080;
         }
-
-        /* أجزاء السلسلة بشكل بطاقات خشنة */
+        
         .parts-legend {
             display: flex;
             flex-wrap: wrap;
@@ -298,6 +304,7 @@
             justify-content: center;
             margin: 40px 0;
         }
+        
         .part-legend {
             background: #161616;
             border: 3px solid #555;
@@ -311,6 +318,7 @@
             letter-spacing: 2px;
             transform: rotate(0deg);
         }
+        
         .part-legend.active {
             background: #c9a96b;
             border-color: #ebd5a8;
@@ -318,18 +326,20 @@
             box-shadow: 15px 15px 0 #000;
             transform: translate(-3px, -3px) rotate(-1deg);
         }
+        
         .part-legend:hover {
             transform: rotate(1deg) scale(1.05);
             box-shadow: 12px 12px 0 #000;
         }
-
-        /* أزرار التحكم السفلية بشكل أقوى */
+        /* أزرار التحكم - تحت العنوان مباشرة */
+        
         .nav-legend {
             display: flex;
             justify-content: center;
             gap: 40px;
-            margin: 50px 0 30px;
+            margin: 20px 0 30px;
         }
+        
         .nav-btn-legend {
             background: #1a1a1a;
             border: 4px solid #606060;
@@ -344,20 +354,21 @@
             cursor: pointer;
             box-shadow: 15px 15px 0 #000000e0;
             transition: 0.1s;
-            transform: translate(0,0);
+            transform: translate(0, 0);
         }
+        
         .nav-btn-legend:hover {
             background: #2a2a2a;
             border-color: #c0c0c0;
             box-shadow: 20px 20px 0 #000;
             transform: translate(-5px, -5px);
         }
+        
         .nav-btn-legend:active {
             box-shadow: 5px 5px 0 #000;
             transform: translate(10px, 10px);
         }
-
-        /* تذييل */
+        
         .footer-legend {
             margin-top: 50px;
             text-align: center;
@@ -368,156 +379,199 @@
             letter-spacing: 4px;
             text-transform: uppercase;
         }
-
-        /* تجاوب مطور */
+        
         @media (max-width: 700px) {
-            .title-legend { font-size: 52px; letter-spacing: 4px; }
-            .server-btn-legend { font-size: 18px; padding: 14px 15px; }
-            .nav-btn-legend { width: 75px; height: 75px; font-size: 36px; }
+            .title-legend {
+                font-size: 52px;
+                letter-spacing: 4px;
+            }
+            .server-btn-legend {
+                font-size: 18px;
+                padding: 14px 15px;
+            }
+            .nav-btn-legend {
+                width: 75px;
+                height: 75px;
+                font-size: 36px;
+            }
         }
+        
         @media (max-width: 480px) {
-            body { padding: 12px; }
-            .title-legend { font-size: 42px; }
-            .info-strip-legend { gap: 15px; }
+            body {
+                padding: 12px;
+            }
+            .title-legend {
+                font-size: 42px;
+            }
+            .info-strip-legend {
+                gap: 15px;
+            }
         }
-        a { text-decoration: none; color: inherit; }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
-<body>
-<div class="legendary-stage">
-    <!-- رأس المسرح -->
-    <div class="legendary-header">
-        <div class="theater-title">🎭 SHADOW LEGEND</div>
-        <div class="legendary-utils">
-            <a href="https://lansr12345.github.io/HaM/" class="util-btn-legend">🏠</a>
-            <div class="util-btn-legend" onclick="toggleMode()">◐</div>
+
+<body class="light-mode">
+    <div class="legendary-stage">
+        <!-- رأس المسرح -->
+        <div class="legendary-header">
+            <div class="theater-title">🎭 SHADOW LEGEND</div>
+            <div class="legendary-utils">
+                <a href="https://lansr12345.github.io/HaM/" class="util-btn-legend">🏠</a>
+                <div class="util-btn-legend" onclick="toggleMode()">◐</div>
+            </div>
+        </div>
+
+        <!-- شاشة العرض الأسطورية -->
+        <div class="screen-legend" style="position: relative;">
+            <iframe id="video-frame" src="https://vidmoly.net/embed-mujk9vrxxoxr.html" allowfullscreen></iframe>
+            <video id="offline-video" controls style="display: none;">
+            <source id="video-source" src="" type="video/mp4">
+        </video>
+            <div class="loader-legend" id="loading-indicator">⚡ رفع الستار...</div>
+        </div>
+
+        <!-- عنوان الفيلم -->
+        <h1 class="title-legend">كونغ فو <span>باندا</span></h1>
+
+        <!-- أزرار التحكم (⏭ ⛶ ⏮) تحت العنوان مباشرة -->
+        <div class="nav-legend">
+            <div class="nav-btn-legend" onclick="nextMovie()">⏭</div>
+            <div class="nav-btn-legend" onclick="toggleFullscreen()">⛶</div>
+            <div class="nav-btn-legend" onclick="prevMovie()">⏮</div>
+        </div>
+
+        <!-- سيرفرات بشكل أزرار حجرية -->
+        <div class="server-block-legend">
+            <div class="server-btn-legend active" id="server1-btn" onclick="setServer(1)">🎞️ 1</div>
+            <div class="server-btn-legend" id="server2-btn" onclick="setServer(2)">🎞️ 2</div>
+            <div class="server-btn-legend" id="server3-btn" onclick="setServer(3)">🎞️ 3</div>
+            <div class="server-btn-legend" id="server4-btn" onclick="setServer(4)">🎞️ 4</div>
+            <div class="server-btn-legend" id="server5-btn" onclick="setServer(5)">🎞️ 5</div>
+        </div>
+
+        <!-- وصف الظلال المتطورة -->
+        <div class="desc-legend">
+            <div class="quote-legend">〝 الإيمان بالنفس هو مفتاح النجاح 〞</div>
+            <p style="color: #c0c0c0; font-size: 1.1rem; line-height: 1.8;">مشاهدة كرتون كونغ فو باندا Kung Fu Panda كامل بجودة عالية. قصة الباندا بو الذي يحلم بأن يصبح محارب كونغ فو أسطوري. تدور الأحداث في الصين القديمة، ويواجه بو الشرير تاي لونغ بعد تدريبه على يد المعلم شيفو. الفيلم من إخراج جون ستيفنسون ومارك أوزبورن،
+                وبطولة أصوات جاك بلاك وأنجلينا جولي وجاكي شان.</p>
+        </div>
+
+        <!-- أجزاء السلسلة -->
+        <div class="parts-legend">
+            <span class="part-legend active">🐼 1</span>
+            <span class="part-legend">🥋 2</span>
+            <span class="part-legend">🐉 3</span>
+            <span class="part-legend">🐢 4</span>
+        </div>
+
+        <!-- شريط المعلومات (في الأسفل فوق التذييل) -->
+        <div class="info-strip-legend">
+            <span class="info-item-legend">📅 2008</span>
+            <span class="info-item-legend">🥋 أكشن · كوميدي</span>
+            <span class="info-item-legend">⏱ 92 دقيقة</span>
+            <span class="info-item-legend">⭐ 8.2/10</span>
+        </div>
+
+        <!-- تذييل -->
+        <div class="footer-legend">
+            <a href="https://lansr12345.github.io/HaM/" style="margin-right: 25px;">🏚️ القاعة الرئيسية</a> | © 2025 مسرح الظلال الأسطوري
         </div>
     </div>
 
-    <!-- شاشة العرض الأسطورية -->
-    <div class="screen-legend" style="position: relative;">
-        <div class="curtain-left"></div>
-        <div class="curtain-right"></div>
-        <iframe id="video-frame" src="https://vidmoly.net/embed-mujk9vrxxoxr.html" allowfullscreen></iframe>
-        <video id="offline-video" controls style="display: none;">
-            <source id="video-source" src="" type="video/mp4">
-        </video>
-        <div class="loader-legend" id="loading-indicator">⚡ رفع الستار...</div>
-    </div>
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+    <script>
+        (function() {
+            const iframe = document.getElementById('video-frame');
+            const video = document.getElementById('offline-video');
+            const source = document.getElementById('video-source');
+            const loader = document.getElementById('loading-indicator');
+            let player = null;
+            const movieKey = 'legend_shadow_kfp';
 
-    <!-- عنوان الفيلم -->
-    <h1 class="title-legend">كونغ فو <span>باندا</span></h1>
-
-    <!-- شريط المعلومات -->
-    <div class="info-strip-legend">
-        <span class="info-item-legend">⭐ 8.2/10</span>
-        <span class="info-item-legend">⏱ 92 دقيقة</span>
-        <span class="info-item-legend">🥋 أكشن · كوميدي</span>
-        <span class="info-item-legend">📅 2008</span>
-    </div>
-
-    <!-- سيرفرات بشكل أزرار حجرية -->
-    <div class="server-block-legend">
-        <div class="server-btn-legend active" id="server1-btn" onclick="setServer(1)">🎞️ 1</div>
-        <div class="server-btn-legend" id="server2-btn" onclick="setServer(2)">🎞️ 2</div>
-        <div class="server-btn-legend" id="server3-btn" onclick="setServer(3)">🎞️ 3</div>
-        <div class="server-btn-legend" id="server4-btn" onclick="setServer(4)">🎞️ 4</div>
-        <div class="server-btn-legend" id="server5-btn" onclick="setServer(5)">🎞️ 5</div>
-    </div>
-
-    <!-- وصف الظلال المتطورة -->
-    <div class="desc-legend">
-        <div class="quote-legend">〝 الإيمان بالنفس هو مفتاح النجاح 〞</div>
-        <p style="color: #c0c0c0; font-size: 1.1rem; line-height: 1.8;">مشاهدة كرتون كونغ فو باندا Kung Fu Panda كامل بجودة عالية. قصة الباندا بو الذي يحلم بأن يصبح محارب كونغ فو أسطوري. تدور الأحداث في الصين القديمة، ويواجه بو الشرير تاي لونغ بعد تدريبه على يد المعلم شيفو. الفيلم من إخراج جون ستيفنسون ومارك أوزبورن، وبطولة أصوات جاك بلاك وأنجلينا جولي وجاكي شان.</p>
-    </div>
-
-    <!-- أجزاء السلسلة -->
-    <div class="parts-legend">
-        <span class="part-legend active">🐼 1</span>
-        <span class="part-legend">🥋 2</span>
-        <span class="part-legend">🐉 3</span>
-        <span class="part-legend">🐢 4</span>
-    </div>
-
-    <!-- أزرار التحكم السفلية -->
-    <div class="nav-legend">
-        <div class="nav-btn-legend" onclick="prevMovie()">⏮</div>
-        <div class="nav-btn-legend" onclick="toggleFullscreen()">⛶</div>
-        <div class="nav-btn-legend" onclick="nextMovie()">⏭</div>
-    </div>
-
-    <!-- تذييل -->
-    <div class="footer-legend">
-        <a href="https://lansr12345.github.io/HaM/" style="margin-right: 25px;">🏚️ القاعة الرئيسية</a> | © 2025 مسرح الظلال الأسطوري
-    </div>
-</div>
-
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<script>
-    (function(){
-        const iframe = document.getElementById('video-frame');
-        const video = document.getElementById('offline-video');
-        const source = document.getElementById('video-source');
-        const loader = document.getElementById('loading-indicator');
-        let player = null;
-        const movieKey = 'legend_shadow_kfp';
-
-        if (video) {
-            player = new Plyr('#offline-video', { controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'] });
-            video.addEventListener('timeupdate', ()=> { try { localStorage.setItem(movieKey, video.currentTime); } catch(e){} });
-        }
-
-        window.showLoading = (show) => loader.style.display = show ? 'block' : 'none';
-        window.updateServerButtons = (num) => {
-            document.querySelectorAll('.server-btn-legend').forEach((b,i)=> {
-                b.classList.toggle('active', i+1 === num);
-            });
-        };
-
-        window.setServer = (num) => {
-            showLoading(true);
-            updateServerButtons(num);
-            const servers = {
-                1: { type: 'iframe', src: 'https://vidmoly.net/embed-mujk9vrxxoxr.html' },
-                2: { type: 'iframe', src: 'https://streamtape.com/e/093jJ1B4d8sb3Zg/' },
-                3: { type: 'iframe', src: 'https://mxdrop.to/e/nlmw13ogtlddwr' },
-                4: { type: 'iframe', src: 'https://still-dawn-0125.lansr1234567.workers.dev/5ubtj1b91ixc?autoplay=1' },
-                5: { type: 'video', src: 'https://vidmoly.me/w/mujk9vrxxoxr' }
-            };
-            const s = servers[num];
-            if (s.type === 'iframe') {
-                iframe.style.display = 'block';
-                video.style.display = 'none';
-                iframe.src = s.src;
-            } else {
-                iframe.style.display = 'none';
-                video.style.display = 'block';
-                source.src = s.src;
-                video.load();
+            if (video) {
+                player = new Plyr('#offline-video', {
+                    controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen']
+                });
+                video.addEventListener('timeupdate', () => {
+                    try {
+                        localStorage.setItem(movieKey, video.currentTime);
+                    } catch (e) {}
+                });
             }
-            setTimeout(()=> showLoading(false), 600);
-        };
 
-        window.toggleMode = () => {
-            document.body.classList.toggle('light-mode');
-        };
+            window.showLoading = (show) => loader.style.display = show ? 'block' : 'none';
+            window.updateServerButtons = (num) => {
+                document.querySelectorAll('.server-btn-legend').forEach((b, i) => {
+                    b.classList.toggle('active', i + 1 === num);
+                });
+            };
 
-        window.toggleFullscreen = () => {
-            const elem = document.querySelector('.screen-legend');
-            if (!document.fullscreenElement) elem.requestFullscreen();
-            else document.exitFullscreen();
-        };
+            window.setServer = (num) => {
+                showLoading(true);
+                updateServerButtons(num);
+                const servers = {
+                    1: {
+                        type: 'iframe',
+                        src: 'https://vidmoly.net/embed-mujk9vrxxoxr.html'
+                    },
+                    2: {
+                        type: 'iframe',
+                        src: 'https://streamtape.com/e/093jJ1B4d8sb3Zg/'
+                    },
+                    3: {
+                        type: 'iframe',
+                        src: 'https://mxdrop.to/e/nlmw13ogtlddwr'
+                    },
+                    4: {
+                        type: 'iframe',
+                        src: 'https://still-dawn-0125.lansr1234567.workers.dev/5ubtj1b91ixc?autoplay=1'
+                    },
+                    5: {
+                        type: 'video',
+                        src: 'https://vidmoly.me/w/mujk9vrxxoxr'
+                    }
+                };
+                const s = servers[num];
+                if (s.type === 'iframe') {
+                    iframe.style.display = 'block';
+                    video.style.display = 'none';
+                    iframe.src = s.src;
+                } else {
+                    iframe.style.display = 'none';
+                    video.style.display = 'block';
+                    source.src = s.src;
+                    video.load();
+                }
+                setTimeout(() => showLoading(false), 600);
+            };
 
-        window.prevMovie = ()=> window.location.href = 'show20.html';
-        window.nextMovie = ()=> window.location.href = 'show2.html';
+            window.toggleMode = () => {
+                document.body.classList.toggle('light-mode');
+            };
 
-        window.onload = ()=> setServer(1);
-    })();
-</script>
-<script>
-    document.querySelector('a[href="https://lansr12345.github.io/HaM/"]').addEventListener('click', (e)=> {
-        e.preventDefault(); window.location.href = 'https://lansr12345.github.io/HaM/';
-    });
-</script>
+            window.toggleFullscreen = () => {
+                const elem = document.querySelector('.screen-legend');
+                if (!document.fullscreenElement) elem.requestFullscreen();
+                else document.exitFullscreen();
+            };
+
+            window.prevMovie = () => window.location.href = 'show20.html';
+            window.nextMovie = () => window.location.href = 'show2.html';
+
+            window.onload = () => setServer(1);
+        })();
+    </script>
+    <script>
+        document.querySelector('a[href="https://lansr12345.github.io/HaM/"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'https://lansr12345.github.io/HaM/';
+        });
+    </script>
 </body>
+
 </html>
