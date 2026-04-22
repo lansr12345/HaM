@@ -688,6 +688,43 @@
             document.addEventListener('click', (e) => { if (!searchBox.contains(e.target) && !searchIconBtn.contains(e.target)) searchBox.classList.remove('active'); });
             searchBox.addEventListener('click', (e) => e.stopPropagation());
 
+            // ---------- دعم السحب (Swipe) على شبكة الكروت للتنقل بين الصفحات ----------
+            const grid = document.getElementById('mainGrid');
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const swipeThreshold = 50; // الحد الأدنى لاعتبار الحركة سحباً
+
+            grid.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            grid.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const diff = touchEndX - touchStartX;
+                if (Math.abs(diff) < swipeThreshold) return;
+
+                const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+                if (diff > 0) {
+                    // سحب لليمين (في RTL يعني الصفحة السابقة)
+                    if (currentPage > 1) {
+                        currentPage--;
+                        updateDisplay();
+                        playClick();
+                    }
+                } else {
+                    // سحب لليسار (الصفحة التالية)
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        updateDisplay();
+                        playClick();
+                    }
+                }
+            }
+
             // Carousel
             const slides = document.querySelectorAll('.video-slide');
             const thumb1 = document.getElementById('thumb1'), thumb2 = document.getElementById('thumb2'), thumb3 = document.getElementById('thumb3');
