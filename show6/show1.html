@@ -40,6 +40,8 @@
     <meta name="author" content="HaM كرتون">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://lansr12345.github.io/HaM/show6/show1.html">
+
+    <!-- Open Graph -->
     <meta property="og:type" content="video.movie">
     <meta property="og:url" content="https://lansr12345.github.io/HaM/show6/show1.html">
     <meta property="og:title" content="كرتون كونغ فو باندا - محارب التنين">
@@ -49,6 +51,7 @@
     <meta name="twitter:title" content="مشاهدة كرتون كونغ فو باندا كامل">
     <meta name="twitter:image" content="https://lansr12345.github.io/HaM/img/dany5/dany04.jpg">
 
+    <!-- PWA -->
     <link rel="manifest" href="/HaM/manifest.json">
     <meta name="theme-color" content="#2a3f6e">
     <link rel="icon" href="/HaM/icons/favicon.ico">
@@ -72,7 +75,7 @@
         .util-btn-legend:active { box-shadow: 2px 2px 0 #000; transform: translate(3px, 3px); }
         .util-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #b0b0b0; text-shadow: 2px 2px 0 #00000080; letter-spacing: 1px; }
         body.light-mode .util-label { color: #2a2a2a; text-shadow: 2px 2px 0 #bbbbbb; }
-        .screen-legend { position: relative; border: 5px solid #2e2e2e; overflow: hidden; box-shadow: 30px 30px 0 #000000b0, inset 0 0 50px #00000080; margin-bottom: 35px; transition: box-shadow 0.4s; transform: rotate(0deg); }
+        .screen-legend { position: relative; border: 5px solid #2e2e2e; overflow: hidden; box-shadow: 30px 30px 0 #000000b0, inset 0 0 50px #00000080; margin-bottom: 35px; transition: box-shadow 0.4s, width 0.3s ease, margin 0.3s ease; width: 100%; }
         .screen-legend:hover { box-shadow: 40px 40px 0 #000000d0, inset 0 0 70px #000; transform: rotate(-0.5deg); }
         #video-frame, #offline-video { width: 100%; aspect-ratio: 16/9; display: block; border: none; background: #000; }
         .loader-legend { position: absolute; bottom: 25px; left: 25px; background: #000000f0; color: #e0c090; padding: 10px 30px; font-weight: 900; border-left: 8px solid var(--accent); display: none; z-index: 35; letter-spacing: 3px; text-transform: uppercase; box-shadow: 10px 10px 0 #00000080; animation: blinkLoader 1.5s infinite; }
@@ -159,7 +162,8 @@
         </div>
         <div class="desc-legend">
             <div class="quote-legend">〝 الإيمان بالنفس هو مفتاح النجاح 〞</div>
-            <p style="color: #c0c0c0; font-size: 1.1rem; line-height: 1.8;">مشاهدة كرتون كونغ فو باندا Kung Fu Panda كامل بجودة عالية. قصة الباندا بو الذي يحلم بأن يصبح محارب كونغ فو أسطوري.</p>
+            <p style="color: #c0c0c0; font-size: 1.1rem; line-height: 1.8;">مشاهدة كرتون كونغ فو باندا Kung Fu Panda كامل بجودة عالية. قصة الباندا بو الذي يحلم بأن يصبح محارب كونغ فو أسطوري. تدور الأحداث في الصين القديمة، ويواجه بو الشرير تاي لونغ بعد تدريبه على يد المعلم شيفو. الفيلم من إخراج جون ستيفنسون ومارك أوزبورن،
+                وبطولة أصوات جاك بلاك وأنجلينا جولي وجاكي شان.</p>
         </div>
         <div class="parts-legend">
             <span class="part-legend active">Season 1</span>
@@ -174,6 +178,7 @@
             <div class="hashtags-title">🏷️ هاشتاجات الفيلم</div>
             <div class="hashtags-container">
                 <span class="hashtag">#KungFuPanda</span><span class="hashtag">#فيلم_كرتون</span><span class="hashtag">#DreamWorks</span>
+                <span class="hashtag">#MasterShifu</span><span class="hashtag">#TaiLung</span><span class="hashtag">#JackBlack</span>
             </div>
         </div>
         <div class="footer-legend">
@@ -235,20 +240,26 @@
                 document.body.classList.toggle('light-mode');
             };
 
-            // ========== تحديد نوع الجهاز وضبط زر تكبير الفيديو (وضع سطح المكتب) ==========
+            // ========== ميزة تكبير المشغل في الجوال (وضع سطح المكتب) ==========
             const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (window.innerWidth <= 768);
             const btn = document.getElementById('fullscreenToggleBtn');
             const lbl = document.getElementById('fullscreenToggleLabel');
-
+            const videoContainer = document.querySelector('.screen-legend');
+            
             if (isMobile) {
-                // في الجوال: تغيير الأيقونة والنص وتفعيل وضع تكبير المشغل فقط
                 btn.innerHTML = '🖥️';
                 lbl.textContent = 'وضع سطح المكتب';
+                
+                // دالة التبديل بين حجمين
                 window.toggleFullscreen = function() {
-                    const videoContainer = document.querySelector('.screen-legend');
-                    videoContainer.classList.toggle('desktop-view');
+                    if (videoContainer.classList.contains('desktop-view')) {
+                        videoContainer.classList.remove('desktop-view');
+                    } else {
+                        videoContainer.classList.add('desktop-view');
+                    }
                 };
-                // إضافة CSS ديناميكي لتكبير المشغل مع بقاء باقي المحتوى
+                
+                // إضافة CSS ديناميكي لتكبير المشغل مع انتقال سلس
                 const style = document.createElement('style');
                 style.textContent = `
                     .screen-legend.desktop-view {
@@ -256,30 +267,33 @@
                         max-width: 1200px !important;
                         margin-left: auto !important;
                         margin-right: auto !important;
-                        transition: all 0.3s ease;
+                        transition: width 0.3s ease, margin 0.3s ease;
                     }
                     .screen-legend.desktop-view #video-frame,
                     .screen-legend.desktop-view #offline-video {
                         height: auto !important;
                         aspect-ratio: 16/9 !important;
                     }
+                    /* إصلاح توسيط العنصر */
+                    .legendary-stage .screen-legend.desktop-view {
+                        position: relative;
+                        left: 0;
+                        right: 0;
+                    }
                 `;
                 document.head.appendChild(style);
             } else {
-                // في الكمبيوتر: يظل زر ملء الشاشة العادي
                 btn.innerHTML = '⛶';
                 lbl.textContent = 'ملء الشاشة';
                 window.toggleFullscreen = function() {
-                    const elem = document.querySelector('.screen-legend');
                     if (!document.fullscreenElement) {
-                        elem.requestFullscreen();
+                        videoContainer.requestFullscreen();
                     } else {
                         document.exitFullscreen();
                     }
                 };
             }
-
-            // ربط الزر بالدالة المناسبة
+            
             btn.addEventListener('click', window.toggleFullscreen);
 
             const TOTAL_MOVIES = 20;
@@ -317,4 +331,5 @@
         })();
     </script>
 </body>
+
 </html>
