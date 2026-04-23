@@ -122,6 +122,63 @@
             position: relative;
         }
         
+        /* ===== وضع كمبيوتر (Desktop View) ===== */
+        body.desktop-view .legendary-stage {
+            max-width: 1600px; /* تكبير عرض الصفحة */
+        }
+        body.desktop-view .screen-legend {
+            transform: scale(1.05);
+            transform-origin: center center;
+            margin-bottom: 45px;
+        }
+        body.desktop-view .title-legend {
+            font-size: 96px;
+        }
+        body.desktop-view .server-btn-legend {
+            font-size: 28px;
+            padding: 22px 30px;
+        }
+        body.desktop-view .nav-btn-legend {
+            width: 110px;
+            height: 110px;
+            font-size: 52px;
+        }
+        body.desktop-view .desc-legend {
+            padding: 40px 45px;
+        }
+        body.desktop-view .quote-legend {
+            font-size: 42px;
+        }
+        body.desktop-view .hashtag {
+            font-size: 20px;
+            padding: 12px 24px;
+        }
+        body.desktop-view .info-item-legend {
+            font-size: 26px;
+        }
+        body.desktop-view .part-legend {
+            font-size: 24px;
+            padding: 20px 45px;
+        }
+        body.desktop-view .footer-icon {
+            width: 80px;
+            height: 80px;
+            font-size: 36px;
+        }
+        /* تعديلات طفيفة على التباعد */
+        body.desktop-view .legendary-header {
+            margin-bottom: 30px;
+        }
+        body.desktop-view .nav-label,
+        body.desktop-view .util-label,
+        body.desktop-view .footer-label {
+            font-size: 18px;
+        }
+        body.desktop-view .theater-title {
+            font-size: 34px;
+        }
+        /* ===== نهاية وضع كمبيوتر ===== */
+
         .legendary-header {
             display: flex;
             justify-content: space-between;
@@ -225,7 +282,7 @@
             overflow: hidden;
             box-shadow: 30px 30px 0 #000000b0, inset 0 0 50px #00000080;
             margin-bottom: 35px;
-            transition: box-shadow 0.4s;
+            transition: box-shadow 0.4s, transform 0.2s;
             transform: rotate(0deg);
         }
         
@@ -676,49 +733,6 @@
             text-decoration: none;
             color: inherit;
         }
-
-        /* ========== إضافات وضع سطح المكتب (Desktop View) ========== */
-        /* هذه القواعد مضافة فقط ولا تؤثر على التصميم الأصلي */
-        body.desktop-view {
-            padding: 5px !important;
-        }
-        body.desktop-view .legendary-stage {
-            max-width: 100% !important;
-        }
-        body.desktop-view .screen-legend {
-            width: 95vw !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            border-width: 4px !important;
-            box-shadow: 20px 20px 0 #000000b0 !important;
-        }
-        body.desktop-view .title-legend {
-            font-size: 64px !important;
-        }
-        body.desktop-view .nav-btn-legend {
-            width: 110px !important;
-            height: 110px !important;
-            font-size: 48px !important;
-        }
-        body.desktop-view .server-btn-legend {
-            font-size: 24px !important;
-            padding: 22px 30px !important;
-        }
-        body.desktop-view .desc-legend {
-            padding: 40px 45px !important;
-            font-size: 1.3rem !important;
-        }
-        body.desktop-view .info-item-legend {
-            font-size: 24px !important;
-        }
-        body.desktop-view .hashtag {
-            font-size: 18px !important;
-            padding: 10px 22px !important;
-        }
-        body.desktop-view .footer-legend {
-            font-size: 18px !important;
-        }
-        /* نهاية إضافات وضع سطح المكتب */
     </style>
 </head>
 
@@ -731,10 +745,10 @@
                 <div class="util-item">
                     <div class="util-btn-legend" onclick="toggleMode()">◐</div><span class="util-label">الوضع الليلى</span>
                 </div>
-                <!-- زر وضع سطح المكتب (مضاف) -->
+                <!-- زر التبديل بين وضع الجوال والكمبيوتر -->
                 <div class="util-item">
-                    <div class="util-btn-legend" id="desktopViewToggle" onclick="toggleDesktopView()">🖥️</div>
-                    <span class="util-label" id="desktopViewLabel">وضع سطح المكتب</span>
+                    <div class="util-btn-legend" id="desktopToggleBtn" onclick="toggleDesktopView()">🖥️</div>
+                    <span class="util-label" id="desktopToggleLabel">وضع كمبيوتر</span>
                 </div>
             </div>
         </div>
@@ -861,26 +875,6 @@
                 if (!document.fullscreenElement) elem.requestFullscreen();
                 else document.exitFullscreen();
             };
-            
-            // ========== دوال وضع سطح المكتب (مضافة) ==========
-            window.toggleDesktopView = () => {
-                const body = document.body;
-                const isDesktop = body.classList.toggle('desktop-view');
-                const label = document.getElementById('desktopViewLabel');
-                label.textContent = isDesktop ? 'وضع الجوال' : 'وضع سطح المكتب';
-                try {
-                    localStorage.setItem('ham_desktop_view', isDesktop ? 'true' : 'false');
-                } catch(e) {}
-            };
-            
-            // استعادة حالة وضع سطح المكتب
-            try {
-                if (localStorage.getItem('ham_desktop_view') === 'true') {
-                    document.body.classList.add('desktop-view');
-                    document.getElementById('desktopViewLabel').textContent = 'وضع الجوال';
-                }
-            } catch(e) {}
-            
             const TOTAL_MOVIES = 20;
 
             function getCurrentMovieNumber() {
@@ -921,6 +915,52 @@
             e.preventDefault();
             window.location.href = 'https://lansr12345.github.io/HaM/';
         });
+    </script>
+    <!-- سكريبت التبديل إلى وضع كمبيوتر وحفظ الحالة -->
+    <script>
+        (function() {
+            const DESKTOP_STORAGE_KEY = 'ham_karToon_desktop_view';
+            const body = document.body;
+            const toggleBtn = document.getElementById('desktopToggleBtn');
+            const toggleLabel = document.getElementById('desktopToggleLabel');
+
+            // تطبيق الوضع المحفوظ
+            function applyDesktopView(enable) {
+                if (enable) {
+                    body.classList.add('desktop-view');
+                    if (toggleLabel) toggleLabel.textContent = 'وضع الجوال';
+                } else {
+                    body.classList.remove('desktop-view');
+                    if (toggleLabel) toggleLabel.textContent = 'وضع كمبيوتر';
+                }
+                try {
+                    localStorage.setItem(DESKTOP_STORAGE_KEY, enable ? 'true' : 'false');
+                } catch(e) {}
+            }
+
+            // قراءة الحالة من localStorage
+            function loadDesktopPreference() {
+                let isDesktop = false;
+                try {
+                    isDesktop = localStorage.getItem(DESKTOP_STORAGE_KEY) === 'true';
+                } catch(e) {}
+                applyDesktopView(isDesktop);
+            }
+
+            // دالة التبديل عند الضغط على الزر
+            window.toggleDesktopView = function() {
+                const currentlyDesktop = body.classList.contains('desktop-view');
+                applyDesktopView(!currentlyDesktop);
+            };
+
+            // تحميل التفضيل عند بدء الصفحة
+            loadDesktopPreference();
+
+            // للتأكد من أن الزر يعمل حتى لو تم استدعاؤه مبكرًا
+            if (toggleBtn) {
+                // لا حاجة لتعريف إضافي
+            }
+        })();
     </script>
 </body>
 
