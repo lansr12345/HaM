@@ -35,8 +35,7 @@
     <!-- ========== نهاية الحماية ========== -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>كونغ فو باندا · HaM كرتون</title>
-    <meta name="description" content="مشاهدة كرتون كونغ فو باندا Kung Fu Panda كامل بجودة عالية HD. قصة الباندا بو الذي يحلم بأن يصبح محارب كونغ فو أسطوري.">
-    <!-- (باقي الوسوم meta كما هي) -->
+    <meta name="description" content="مشاهدة كرتون كونغ فو باندا Kung Fu Panda كامل بجودة عالية HD.">
     <meta name="keywords" content="كونغ فو باندا, كرتون كونغ فو باندا, Kung Fu Panda">
     <meta name="author" content="HaM كرتون">
     <meta name="robots" content="index, follow">
@@ -56,7 +55,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
     <style>
-        /* ========== HaM كرتون - تصميم أسطوري (بدون تغيير) ========== */
+        /* ========== HaM كرتون - تصميم أسطوري ========== */
         :root { --accent: #ff6b4a; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Cairo', sans-serif; background: #0a0a0a; color: #ddd; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; transition: background 0.3s; background-image: repeating-linear-gradient(45deg, #111 0px, #111 2px, transparent 2px, transparent 8px), radial-gradient(circle at 30% 40%, #1a1a1a 0%, transparent 50%); }
@@ -236,19 +235,36 @@
                 document.body.classList.toggle('light-mode');
             };
 
-            // ========== تحديد نوع الجهاز ==========
+            // ========== تحديد نوع الجهاز وضبط زر تكبير الفيديو (وضع سطح المكتب) ==========
             const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (window.innerWidth <= 768);
             const btn = document.getElementById('fullscreenToggleBtn');
             const lbl = document.getElementById('fullscreenToggleLabel');
 
             if (isMobile) {
-                // في الجوال: تغيير الأيقونة والنص وتفعيل وضع تكبير الفيديو
+                // في الجوال: تغيير الأيقونة والنص وتفعيل وضع تكبير المشغل فقط
                 btn.innerHTML = '🖥️';
                 lbl.textContent = 'وضع سطح المكتب';
                 window.toggleFullscreen = function() {
                     const videoContainer = document.querySelector('.screen-legend');
                     videoContainer.classList.toggle('desktop-view');
                 };
+                // إضافة CSS ديناميكي لتكبير المشغل مع بقاء باقي المحتوى
+                const style = document.createElement('style');
+                style.textContent = `
+                    .screen-legend.desktop-view {
+                        width: 95vw !important;
+                        max-width: 1200px !important;
+                        margin-left: auto !important;
+                        margin-right: auto !important;
+                        transition: all 0.3s ease;
+                    }
+                    .screen-legend.desktop-view #video-frame,
+                    .screen-legend.desktop-view #offline-video {
+                        height: auto !important;
+                        aspect-ratio: 16/9 !important;
+                    }
+                `;
+                document.head.appendChild(style);
             } else {
                 // في الكمبيوتر: يظل زر ملء الشاشة العادي
                 btn.innerHTML = '⛶';
@@ -265,27 +281,6 @@
 
             // ربط الزر بالدالة المناسبة
             btn.addEventListener('click', window.toggleFullscreen);
-
-            // إضافة CSS ديناميكي لوضع سطح المكتب في الجوال
-            if (isMobile) {
-                const style = document.createElement('style');
-                style.textContent = `
-                    .screen-legend.desktop-view {
-                        width: 95vw !important;
-                        max-width: 1200px !important;
-                        margin-left: auto !important;
-                        margin-right: auto !important;
-                        transform: scale(1.0);
-                        transition: all 0.3s ease;
-                    }
-                    .screen-legend.desktop-view #video-frame,
-                    .screen-legend.desktop-view #offline-video {
-                        height: auto !important;
-                        aspect-ratio: 16/9 !important;
-                    }
-                `;
-                document.head.appendChild(style);
-            }
 
             const TOTAL_MOVIES = 20;
             function getCurrentMovieNumber() {
