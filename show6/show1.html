@@ -6,17 +6,11 @@
     <!-- ========== بداية الحماية ========== -->
     <meta name="referrer" content="no-referrer">
     <script>
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
             if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') ||
                 (e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                (e.ctrlKey && e.key === 's')) {
-                e.preventDefault();
-                return false;
-            }
+                (e.ctrlKey && e.key === 's')) e.preventDefault();
         });
     </script>
     <style>
@@ -26,7 +20,6 @@
             -moz-user-select: none;
             -ms-user-select: none;
         }
-        
         img {
             -webkit-user-drag: none;
             pointer-events: auto;
@@ -35,72 +28,55 @@
     <!-- ========== نهاية الحماية ========== -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>كونغ فو باندا · HaM كرتون</title>
-    <meta name="description" content="مشاهدة كرتون كونغ فو باندا Kung Fu Panda كامل بجودة عالية HD.">
-    <meta name="keywords" content="كونغ فو باندا, كرتون كونغ فو باندا, Kung Fu Panda">
-    <meta name="author" content="HaM كرتون">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="مشاهدة كرتون كونغ فو باندا كامل بجودة HD">
     <link rel="canonical" href="https://lansr12345.github.io/HaM/show6/show1.html">
 
     <!-- Open Graph -->
-    <meta property="og:type" content="video.movie">
-    <meta property="og:url" content="https://lansr12345.github.io/HaM/show6/show1.html">
-    <meta property="og:title" content="كرتون كونغ فو باندا">
-    <meta property="og:description" content="شاهد كرتون كونغ فو باندا كامل بجودة HD">
+    <meta property="og:title" content="كونغ فو باندا">
     <meta property="og:image" content="https://lansr12345.github.io/HaM/img/dany5/dany04.jpg">
-    <meta property="og:site_name" content="HaM كرتون">
 
     <!-- PWA -->
     <link rel="manifest" href="/HaM/manifest.json">
     <meta name="theme-color" content="#2a3f6e">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
-    <!-- أيقونات -->
     <link rel="icon" href="/HaM/icons/favicon.ico">
     <link rel="apple-touch-icon" href="/HaM/icons/icon-192x192.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
     <style>
-        /* ========== HaM كرتون - تصميم أسطوري ========== */
-        :root {
-            --accent: #ff6b4a;
-        }
+        /* ========== الأساسيات ========== */
+        :root { --accent: #ff6b4a; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Cairo', sans-serif;
             background: #0a0a0a;
             color: #ddd;
             min-height: 100vh;
+            padding: 20px;
+            transition: 0.3s;
+            background-image: repeating-linear-gradient(45deg, #111 0px, #111 2px, transparent 2px, transparent 8px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            transition: background 0.3s;
-            background-image: repeating-linear-gradient(45deg, #111 0px, #111 2px, transparent 2px, transparent 8px), radial-gradient(circle at 30% 40%, #1a1a1a 0%, transparent 50%);
         }
         body.light-mode {
             background: #e8e8e8;
             color: #1a1a1a;
-            background-image: repeating-linear-gradient(45deg, #ccc 0px, #ccc 2px, transparent 2px, transparent 8px), radial-gradient(circle at 30% 40%, #f0f0f0 0%, transparent 50%);
+            background-image: repeating-linear-gradient(45deg, #ccc 0px, #ccc 2px, transparent 2px, transparent 8px);
         }
-        
-        /* الحاوية الرئيسية */
         .legendary-stage {
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
-            position: relative;
         }
-        
-        /* === الوضع العادي (الهاتف) === */
+        /* ========== التصميم العادي (الهاتف) ========== */
         .legendary-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            padding: 0 5px;
-            border-bottom: 2px solid #3a3a3a;
             padding-bottom: 15px;
+            border-bottom: 2px solid #3a3a3a;
         }
         .theater-title {
             font-size: 26px;
@@ -108,22 +84,17 @@
             letter-spacing: 8px;
             text-transform: uppercase;
             text-shadow: 4px 4px 0 #00000080;
-            animation: flicker 3s infinite alternate;
         }
-        .theater-title .white-part { color: #ffffff; }
+        .theater-title .white-part { color: #fff; }
         .theater-title .gold-part { color: var(--accent); }
         body.light-mode .theater-title .white-part { color: #1a1a1a; }
-        @keyframes flicker {
-            0% { opacity: 0.9; text-shadow: 4px 4px 0 #00000080; }
-            100% { opacity: 1; text-shadow: 6px 6px 0 #000000b0; }
-        }
         .legendary-utils { display: flex; gap: 20px; }
         .util-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
         .util-btn-legend {
             background: none; border: 2px solid #808080; color: #b0b0b0;
             width: 50px; height: 50px; font-size: 24px; cursor: pointer;
-            transition: 0.15s; display: flex; align-items: center; justify-content: center;
-            box-shadow: 5px 5px 0 #00000060; transform: translate(0, 0);
+            box-shadow: 5px 5px 0 #00000060; transition: 0.15s;
+            display: flex; align-items: center; justify-content: center;
         }
         .util-btn-legend:hover {
             background: #ffffff10; border-color: #c0c0c0; color: #fff;
@@ -131,101 +102,71 @@
         }
         .util-label {
             font-size: 12px; font-weight: 700; text-transform: uppercase;
-            color: #b0b0b0; text-shadow: 2px 2px 0 #00000080; letter-spacing: 1px;
+            color: #b0b0b0; text-shadow: 2px 2px 0 #00000080;
         }
-        body.light-mode .util-label { color: #2a2a2a; text-shadow: 2px 2px 0 #bbbbbb; }
-        
+        body.light-mode .util-label { color: #2a2a2a; }
         .screen-legend {
-            position: relative; border: 5px solid #2e2e2e; overflow: hidden;
-            box-shadow: 30px 30px 0 #000000b0, inset 0 0 50px #00000080;
-            margin-bottom: 35px; transition: box-shadow 0.4s; transform: rotate(0deg);
-        }
-        .screen-legend:hover {
-            box-shadow: 40px 40px 0 #000000d0, inset 0 0 70px #000;
-            transform: rotate(-0.5deg);
+            border: 5px solid #2e2e2e; overflow: hidden;
+            box-shadow: 30px 30px 0 #000000b0; margin-bottom: 35px;
         }
         #video-frame, #offline-video {
-            width: 100%; aspect-ratio: 16/9; display: block; border: none; background: #000;
+            width: 100%; aspect-ratio: 16/9; display: block; background: #000;
         }
         .loader-legend {
             position: absolute; bottom: 25px; left: 25px; background: #000000f0;
-            color: #e0c090; padding: 10px 30px; font-weight: 900; border-left: 8px solid var(--accent);
-            display: none; z-index: 35; letter-spacing: 3px; text-transform: uppercase;
-            box-shadow: 10px 10px 0 #00000080; animation: blinkLoader 1.5s infinite;
-        }
-        @keyframes blinkLoader {
-            0%,100% { opacity: 1; } 50% { opacity: 0.6; }
+            color: #e0c090; padding: 10px 30px; border-left: 8px solid var(--accent);
+            display: none; z-index: 35;
         }
         .title-legend {
-            font-size: 72px; font-weight: 900; text-transform: uppercase; line-height: 1;
-            margin: 20px 0 10px; color: #ddd; text-shadow: 10px 10px 0 #151515, 2px 2px 15px #000000b0;
-            letter-spacing: 8px; word-break: break-word; transition: transform 0.1s, text-shadow 0.3s;
-            display: inline-block; padding: 0 10px;
+            font-size: 72px; font-weight: 900; margin: 20px 0 10px;
+            text-shadow: 10px 10px 0 #151515; letter-spacing: 8px;
         }
-        .title-legend span { color: var(--accent); text-shadow: 10px 10px 0 #151515; display: inline-block; }
+        .title-legend span { color: var(--accent); }
         body.light-mode .title-legend { text-shadow: 8px 8px 0 #bbbbbb; }
-        
         .info-strip-legend {
             display: flex; flex-wrap: wrap; gap: 30px; margin: 20px 0 30px;
             border-top: 3px solid #3a3a3a; border-bottom: 3px solid #3a3a3a;
             padding: 18px 0; justify-content: space-around;
         }
         .info-item-legend {
-            font-weight: 900; font-size: 20px; color: #b0b0b0; text-transform: uppercase;
-            letter-spacing: 2px; transition: 0.2s; animation: subtleShake 5s infinite;
-        }
-        @keyframes subtleShake {
-            0%,100% { transform: translateX(0); }
-            2% { transform: translateX(-2px); }
-            4% { transform: translateX(2px); }
-            6% { transform: translateX(0); }
+            font-weight: 900; font-size: 20px; color: #b0b0b0;
         }
         .hashtags-section {
             margin: 20px 0 30px; padding: 15px 0;
             border-top: 2px dashed #4a4a4a; border-bottom: 2px dashed #4a4a4a;
         }
         .hashtags-title {
-            font-size: 18px; font-weight: 900; color: var(--accent); text-transform: uppercase;
-            letter-spacing: 3px; margin-bottom: 15px; text-align: center; text-shadow: 2px 2px 0 #00000080;
+            font-size: 18px; font-weight: 900; color: var(--accent);
+            text-align: center; margin-bottom: 15px;
         }
-        .hashtags-container { display: flex; flex-wrap: wrap; gap: 12px 18px; justify-content: center; }
+        .hashtags-container {
+            display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+        }
         .hashtag {
             background: #1a1a1a; border: 2px solid #3a3a3a; color: #d0d0d0;
             padding: 8px 18px; font-size: 16px; font-weight: 700; border-radius: 30px;
-            box-shadow: 4px 4px 0 #00000080; transition: all 0.15s; cursor: default;
+            box-shadow: 4px 4px 0 #00000080;
         }
-        .hashtag:hover {
-            background: var(--accent); border-color: #ebd5a8; color: #0c0c0c;
-            box-shadow: 6px 6px 0 #000000b0; transform: translate(-2px, -2px);
-        }
-        body.light-mode .hashtag { background: #e0e0e0; border-color: #999; color: #1a1a1a; }
-        body.light-mode .hashtag:hover { background: var(--accent); color: #000; }
-        
         .server-block-legend {
             display: flex; flex-wrap: wrap; gap: 15px; margin: 40px 0;
         }
         .server-btn-legend {
             background: #181818; border: 4px solid #4a4a4a; color: #d0d0d0;
             padding: 18px 25px; font-weight: 900; font-size: 22px; text-transform: uppercase;
-            cursor: pointer; box-shadow: 12px 12px 0 #0a0a0a; transition: 0.1s;
-            flex: 1 0 100px; text-align: center; letter-spacing: 2px;
+            cursor: pointer; box-shadow: 12px 12px 0 #0a0a0a; flex: 1 0 100px;
+            text-align: center;
         }
         .server-btn-legend.active {
             background: var(--accent); border-color: #ebd5a8; color: #0c0c0c;
             box-shadow: 16px 16px 0 #000000e0; transform: translate(-4px, -4px);
         }
-        .server-btn-legend:hover {
-            background: #2a2a2a; border-color: #a0a0a0; box-shadow: 14px 14px 0 #000;
-            transform: translate(-2px, -2px);
-        }
         .desc-legend {
             background: #121212; border: 3px solid #3a3a3a; padding: 30px 35px;
             margin: 40px 0; border-right: 20px solid var(--accent);
-            box-shadow: 20px 20px 0 #000000b0, inset 0 0 30px #00000060; transition: 0.3s;
+            box-shadow: 20px 20px 0 #000000b0;
         }
         .quote-legend {
             font-size: 32px; font-weight: 900; color: var(--accent); margin-bottom: 20px;
-            text-shadow: 4px 4px 0 #00000080;
         }
         .parts-legend {
             display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 40px 0;
@@ -233,11 +174,10 @@
         .part-legend {
             background: #161616; border: 3px solid #555; padding: 15px 35px;
             font-weight: 900; color: #c0c0c0; cursor: pointer; box-shadow: 10px 10px 0 #000;
-            transition: 0.1s; text-transform: uppercase; letter-spacing: 2px;
         }
         .part-legend.active {
             background: var(--accent); border-color: #ebd5a8; color: #0c0c0c;
-            box-shadow: 15px 15px 0 #000; transform: translate(-3px, -3px) rotate(-1deg);
+            box-shadow: 15px 15px 0 #000; transform: translate(-3px, -3px);
         }
         .nav-legend {
             display: flex; justify-content: center; align-items: center; gap: 50px;
@@ -246,131 +186,125 @@
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .nav-btn-legend {
             background: #1a1a1a; border: 4px solid #606060; width: 90px; height: 90px;
-            display: flex; align-items: center; justify-content: center; font-size: 42px;
-            font-weight: 900; color: #d0d0d0; cursor: pointer; box-shadow: 15px 15px 0 #000000e0;
-            transition: 0.1s;
-        }
-        .nav-btn-legend:hover {
-            background: #2a2a2a; border-color: #c0c0c0; box-shadow: 20px 20px 0 #000;
-            transform: translate(-5px, -5px);
+            font-size: 42px; font-weight: 900; color: #d0d0d0; cursor: pointer;
+            box-shadow: 15px 15px 0 #000000e0; display: flex;
+            align-items: center; justify-content: center;
         }
         .nav-label {
-            font-size: 20px; font-weight: 900; text-transform: uppercase;
-            color: #b0b0b0; text-shadow: 3px 3px 0 #00000080; letter-spacing: 2px;
+            font-size: 20px; font-weight: 900; color: #b0b0b0; text-transform: uppercase;
         }
-        body.light-mode .nav-label { color: #2a2a2a; text-shadow: 3px 3px 0 #bbbbbb; }
         .footer-legend {
             margin-top: 50px; text-align: center; color: #808080;
-            border-top: 3px dashed #4a4a4a; padding-top: 30px; font-weight: 700;
-            letter-spacing: 4px; text-transform: uppercase;
+            border-top: 3px dashed #4a4a4a; padding-top: 30px;
         }
         .footer-links {
-            display: flex; justify-content: center; align-items: center; gap: 50px;
-            flex-wrap: wrap; margin-bottom: 20px;
+            display: flex; justify-content: center; gap: 50px; margin-bottom: 20px;
         }
         .footer-icon {
             background: #1a1a1a; border: 3px solid #555; width: 60px; height: 60px;
-            display: flex; align-items: center; justify-content: center; font-size: 28px;
-            color: #d0d0d0; cursor: pointer; box-shadow: 8px 8px 0 #000000b0;
-            transition: 0.15s; text-decoration: none;
+            font-size: 28px; color: #d0d0d0; cursor: pointer; box-shadow: 8px 8px 0 #000000b0;
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
         }
         .footer-icon:hover {
-            background: var(--accent); border-color: #ebd5a8; color: #0c0c0c;
-            box-shadow: 12px 12px 0 #000000d0; transform: translate(-4px, -4px);
+            background: var(--accent); color: #000; box-shadow: 12px 12px 0 #000;
         }
-        body.light-mode .footer-icon { background: #e0e0e0; border-color: #999; color: #1a1a1a; }
-        body.light-mode .footer-icon:hover { background: var(--accent); color: #000; }
         .copyright { margin-top: 20px; font-size: 14px; }
-        
-        /* ========== وضع سطح المكتب (تخطيط أفقي) ========== */
+
+        /* ========== وضع سطح المكتب (تخطيط أفقي بعمودين) ========== */
+        body.desktop-mode {
+            padding: 10px !important;
+        }
         body.desktop-mode .legendary-stage {
             max-width: 100% !important;
-            padding: 5px 10px;
+            display: grid;
+            grid-template-columns: 1fr 280px;  /* العمود الأيمن (في RTL) للشريط الجانبي */
+            gap: 15px;
+            align-items: start;
         }
+        /* نجعل الهيدر يمتد عبر العمودين */
         body.desktop-mode .legendary-header {
-            margin-bottom: 5px; padding-bottom: 5px;
+            grid-column: 1 / -1;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
         }
         body.desktop-mode .theater-title {
-            font-size: 20px; letter-spacing: 4px;
+            font-size: 22px;
+            letter-spacing: 4px;
         }
         body.desktop-mode .util-btn-legend {
             width: 40px; height: 40px; font-size: 20px;
         }
-        /* استخدام Grid لتقسيم الشاشة: عمود كبير للفيديو وعمود صغير للباقي */
-        body.desktop-mode .legendary-stage {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 15px;
-            align-items: start;
-        }
-        /* نجعل الهيدر يمتد على العمودين */
-        body.desktop-mode .legendary-header {
-            grid-column: 1 / -1;
-        }
-        /* حاوية الفيديو في العمود الأول */
+
+        /* ===== العمود الأيسر (الفيديو والمحتوى الرئيسي) ===== */
         body.desktop-mode .screen-legend {
             grid-column: 1 / 2;
+            grid-row: 2 / 3;
             margin-bottom: 10px;
-            box-shadow: 20px 20px 0 #000000b0;
+            border-width: 3px;
+            box-shadow: 15px 15px 0 #000000b0;
         }
-        /* العنوان تحت الفيديو في العمود الأول */
+        /* نقل العنوان لأسفل الفيديو مباشرة */
         body.desktop-mode .title-legend {
             grid-column: 1 / 2;
+            grid-row: 3 / 4;
             font-size: 36px;
             margin: 5px 0;
+            letter-spacing: 4px;
         }
-        /* الوصف تحت العنوان */
+        /* الوصف */
         body.desktop-mode .desc-legend {
             grid-column: 1 / 2;
+            grid-row: 4 / 5;
             margin: 10px 0;
             padding: 15px;
             font-size: 14px;
         }
-        body.desktop-mode .desc-legend .quote-legend {
+        body.desktop-mode .quote-legend {
             font-size: 20px;
         }
-        /* شريط المعلومات أسفل الوصف */
+        /* شريط المعلومات */
         body.desktop-mode .info-strip-legend {
             grid-column: 1 / 2;
-            margin: 10px 0;
-            padding: 10px 0;
+            grid-row: 5 / 6;
+            margin: 8px 0;
+            padding: 8px 0;
             gap: 15px;
         }
         body.desktop-mode .info-item-legend {
             font-size: 16px;
         }
-        /* الهاشتاجات أسفل المعلومات */
+        /* الهاشتاجات */
         body.desktop-mode .hashtags-section {
             grid-column: 1 / 2;
-            margin: 10px 0;
-            padding: 10px 0;
-        }
-        body.desktop-mode .hashtags-title {
-            font-size: 16px;
+            grid-row: 6 / 7;
+            margin: 8px 0;
+            padding: 8px 0;
         }
         body.desktop-mode .hashtag {
             font-size: 14px;
             padding: 5px 12px;
         }
-        /* الفوتر في الأسفل */
+        /* الفوتر */
         body.desktop-mode .footer-legend {
             grid-column: 1 / 2;
-            margin-top: 20px;
+            grid-row: 7 / 8;
+            margin-top: 15px;
             padding-top: 15px;
         }
-        
-        /* العمود الثاني (الشريط الجانبي) */
+
+        /* ===== العمود الأيمن (الشريط الجانبي) ===== */
+        /* سنضع أزرار التنقل، السيرفرات، والأجزاء في هذا العمود */
         body.desktop-mode .nav-legend {
             grid-column: 2 / 3;
             grid-row: 2 / 3;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             margin: 0;
             background: #121212;
             border: 3px solid #3a3a3a;
-            padding: 15px;
             border-radius: 15px;
+            padding: 15px;
             box-shadow: 10px 10px 0 #000000b0;
         }
         body.desktop-mode .nav-item {
@@ -379,12 +313,13 @@
             width: 100%;
         }
         body.desktop-mode .nav-btn-legend {
-            width: 60px; height: 60px; font-size: 30px;
+            width: 55px; height: 55px; font-size: 28px;
+            box-shadow: 8px 8px 0 #000;
         }
         body.desktop-mode .nav-label {
-            font-size: 16px;
+            font-size: 14px;
         }
-        /* السيرفرات تظهر في الشريط الجانبي */
+        /* السيرفرات تظهر في العمود الجانبي أسفل أزرار التنقل */
         body.desktop-mode .server-block-legend {
             grid-column: 2 / 3;
             grid-row: 3 / 4;
@@ -394,40 +329,54 @@
             gap: 8px;
         }
         body.desktop-mode .server-btn-legend {
-            padding: 12px; font-size: 16px; flex: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            flex: none;
+            box-shadow: 8px 8px 0 #000;
         }
-        /* أجزاء الموسم */
+        /* أجزاء الموسم في العمود الجانبي أسفل السيرفرات */
         body.desktop-mode .parts-legend {
             grid-column: 2 / 3;
             grid-row: 4 / 5;
-            margin: 0;
+            margin: 10px 0 0;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
         body.desktop-mode .part-legend {
-            padding: 10px; font-size: 14px;
+            padding: 8px 15px;
+            font-size: 14px;
+            box-shadow: 6px 6px 0 #000;
         }
-        
-        /* تعديلات للأجهزة الصغيرة جدًا عند وضع سطح المكتب */
-        @media (max-width: 700px) {
+
+        /* تصغير حجم الخطوط في العمود الجانبي */
+        body.desktop-mode .server-btn-legend,
+        body.desktop-mode .part-legend {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* للشاشات الصغيرة جدًا عند استخدام وضع سطح المكتب */
+        @media (max-width: 600px) {
             body.desktop-mode .legendary-stage {
-                grid-template-columns: 1fr 220px;
+                grid-template-columns: 1fr 200px;
                 gap: 8px;
             }
             body.desktop-mode .nav-btn-legend {
-                width: 50px; height: 50px; font-size: 24px;
+                width: 45px; height: 45px; font-size: 24px;
             }
             body.desktop-mode .server-btn-legend {
-                font-size: 14px; padding: 8px;
+                font-size: 14px; padding: 8px 10px;
             }
         }
-        
+
         a { text-decoration: none; color: inherit; }
     </style>
 </head>
 
 <body class="light-mode">
     <div class="legendary-stage">
+        <!-- الهيدر -->
         <div class="legendary-header">
             <div class="theater-title"><span class="white-part">🎭 HaM</span> <span class="gold-part">كرتون</span></div>
             <div class="legendary-utils">
@@ -438,16 +387,17 @@
             </div>
         </div>
 
-        <!-- فيديو -->
+        <!-- حاوية الفيديو -->
         <div class="screen-legend">
             <iframe id="video-frame" src="https://vidmoly.net/embed-mujk9vrxxoxr.html" allowfullscreen></iframe>
             <video id="offline-video" controls style="display: none;"><source id="video-source" src="" type="video/mp4"></video>
             <div class="loader-legend" id="loading-indicator">⚡ رفع الستار...</div>
         </div>
 
+        <!-- عنوان الفيلم -->
         <h1 class="title-legend" id="movieTitle">كونغ فو <span>باندا</span></h1>
 
-        <!-- عناصر التحكم (السابق، سطح المكتب، التالي) -->
+        <!-- شريط التنقل (السابق، سطح المكتب، التالي) -->
         <div class="nav-legend">
             <div class="nav-item">
                 <div class="nav-btn-legend" onclick="goToPrev()">⏭</div><span class="nav-label">السابق</span>
@@ -461,7 +411,7 @@
             </div>
         </div>
 
-        <!-- سيرفرات -->
+        <!-- أزرار السيرفرات -->
         <div class="server-block-legend">
             <div class="server-btn-legend active" id="server1-btn" onclick="setServer(1)">🎞️ سيرفر 1</div>
             <div class="server-btn-legend" id="server2-btn" onclick="setServer(2)">🎞️ سيرفر 2</div>
@@ -470,7 +420,7 @@
             <div class="server-btn-legend" id="server5-btn" onclick="setServer(5)">🎞️ سيرفر 5</div>
         </div>
 
-        <!-- وصف -->
+        <!-- الوصف -->
         <div class="desc-legend">
             <div class="quote-legend">〝 الإيمان بالنفس هو مفتاح النجاح 〞</div>
             <p style="color: #c0c0c0; font-size: 1.1rem; line-height: 1.8;">مشاهدة كرتون كونغ فو باندا Kung Fu Panda كامل بجودة عالية. قصة الباندا بو الذي يحلم بأن يصبح محارب كونغ فو أسطوري.</p>
@@ -523,13 +473,9 @@
             const source = document.getElementById('video-source');
             const loader = document.getElementById('loading-indicator');
             let player = null;
-            const movieKey = 'legend_shadow_kfp';
             if (video) {
                 player = new Plyr('#offline-video', {
                     controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen']
-                });
-                video.addEventListener('timeupdate', () => {
-                    try { localStorage.setItem(movieKey, video.currentTime); } catch (e) {}
                 });
             }
             window.showLoading = (show) => loader.style.display = show ? 'block' : 'none';
@@ -561,69 +507,26 @@
                 }
                 setTimeout(() => showLoading(false), 600);
             };
-            window.toggleMode = () => {
-                document.body.classList.toggle('light-mode');
-            };
+            window.toggleMode = () => document.body.classList.toggle('light-mode');
             
-            // وضع سطح المكتب
             window.toggleDesktopMode = () => {
-                const body = document.body;
-                const isDesktop = body.classList.toggle('desktop-mode');
-                const label = document.getElementById('desktopModeLabel');
-                label.textContent = isDesktop ? 'الوضع العادي' : 'وضع سطح المكتب';
-                try {
-                    localStorage.setItem('ham_desktop_mode', isDesktop ? 'true' : 'false');
-                } catch(e) {}
+                const isDesktop = document.body.classList.toggle('desktop-mode');
+                document.getElementById('desktopModeLabel').textContent = isDesktop ? 'الوضع العادي' : 'وضع سطح المكتب';
+                localStorage.setItem('ham_desktop_mode', isDesktop ? 'true' : 'false');
             };
             
-            // استعادة الوضع
-            try {
-                if (localStorage.getItem('ham_desktop_mode') === 'true') {
-                    document.body.classList.add('desktop-mode');
-                    document.getElementById('desktopModeLabel').textContent = 'الوضع العادي';
-                }
-            } catch(e) {}
-            
-            const TOTAL_MOVIES = 20;
-            function getCurrentMovieNumber() {
-                const match = window.location.pathname.match(/show(\d+)\.html$/);
-                return match ? parseInt(match[1], 10) : 1;
+            if (localStorage.getItem('ham_desktop_mode') === 'true') {
+                document.body.classList.add('desktop-mode');
+                document.getElementById('desktopModeLabel').textContent = 'الوضع العادي';
             }
-            window.goToNext = function() {
-                let next = getCurrentMovieNumber() + 1;
-                if (next > TOTAL_MOVIES) next = 1;
-                window.location.href = `show${next}.html`;
-            };
-            window.goToPrev = function() {
-                let prev = getCurrentMovieNumber() - 1;
-                if (prev < 1) prev = TOTAL_MOVIES;
-                window.location.href = `show${prev}.html`;
-            };
             
-            const title = document.getElementById('movieTitle');
-            if (title) {
-                title.addEventListener('mousemove', (e) => {
-                    const rect = title.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    const rotateY = ((e.clientX - centerX) / (rect.width / 2)) * 5;
-                    const rotateX = -((e.clientY - centerY) / (rect.height / 2)) * 5;
-                    title.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) skewX(-2deg)`;
-                    title.style.textShadow = `${Math.abs(rotateY)*2+10}px ${Math.abs(rotateX)*2+10}px 0 #151515, 2px 2px 15px #000000b0`;
-                });
-                title.addEventListener('mouseleave', () => {
-                    title.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) skewX(-2deg)';
-                    title.style.textShadow = '10px 10px 0 #151515, 2px 2px 15px #000000b0';
-                });
-            }
+            const TOTAL = 20;
+            const cur = parseInt(window.location.pathname.match(/show(\d+)/)?.[1] || '1');
+            window.goToNext = () => window.location.href = `show${cur >= TOTAL ? 1 : cur + 1}.html`;
+            window.goToPrev = () => window.location.href = `show${cur <= 1 ? TOTAL : cur - 1}.html`;
+            
             window.onload = () => setServer(1);
         })();
-    </script>
-    <script>
-        document.querySelector('a[href="https://lansr12345.github.io/HaM/"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = 'https://lansr12345.github.io/HaM/';
-        });
     </script>
 </body>
 
