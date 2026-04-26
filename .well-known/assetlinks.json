@@ -1,8 +1,8 @@
 [{
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-        "namespace": "android_app",
-        "package_name": "io.github.lansr12345.ham",
-        "sha256_cert_fingerprints": ["CD:B8:39:6B:CA:0C:F8:43:F1:29:33:C9:67:0B:EF:8A:88:FB:77:A9:C8:FF:0A:25:B1:C8:96:DA:E4:A0:0B:79"]
-    }
-}] 
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.lansr12345.hamcartoon",
+    "sha256_cert_fingerprints": ["F5:73:22:E1:22:33:88:3A:F3:F8:C7:90:05:AB:19:9E:5F:55:A5:06:F8:BC:18:CD:C7:EF:31:DB:FD:A2:1C:1F"]
+  }
+}]
