@@ -6,14 +6,13 @@ Allow: /
 Disallow: /sounds/
 Disallow: /vid/
 
-# رابط خريطة الموقع (Sitemap)
+# رابط خريطة الموقع
 Sitemap: https://lansr12345.github.io/HaM/sitemap.xml
 
-# حماية بعض المسارات الحساسة (اختياري)
+# حماية بعض المسارات
 Disallow: /admin/
 Disallow: /private/
 Disallow: /temp/
 Disallow: /backup/
 
-# Crawl-delay (تأخير الزحف) - محترم لمواقع GitHub Pages
 Crawl-delay: 5
