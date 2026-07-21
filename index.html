@@ -41,7 +41,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HaM كرتون">
 
-    <!-- أيقونات PWA بجميع الأحجام القياسية -->
+    <!-- أيقونات PWA -->
     <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
     <link rel="icon" type="image/png" sizes="72x72" href="icons/icon-72x72.png">
@@ -49,8 +49,6 @@
     <link rel="icon" type="image/png" sizes="144x144" href="icons/icon-144x144.png">
     <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
-
-    <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" sizes="32x32" href="icons/icon-32x32.png">
     <link rel="apple-touch-icon" sizes="72x72" href="icons/icon-72x72.png">
     <link rel="apple-touch-icon" sizes="96x96" href="icons/icon-96x96.png">
@@ -59,22 +57,19 @@
     <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
 
     <style>
-        /* ========== أساسيات ========== */
-        
+        /* ========== نفس التصميم الأصلي بالكامل ========== */
         html,
         body {
             overflow-x: hidden !important;
             width: 100%;
             position: relative;
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-         :root {
+        :root {
             --bg-grad-start: #2a3f6e;
             --bg-grad-end: #0f172a;
             --text-primary: #ffffff;
@@ -87,7 +82,6 @@
             --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             --ease-smooth: cubic-bezier(0.2, 0.9, 0.4, 1);
         }
-        
         body.light-mode {
             --bg-grad-start: #f0f4fa;
             --bg-grad-end: #d9e2ec;
@@ -100,7 +94,6 @@
             --border-light: rgba(30, 41, 59, 0.15);
             --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
         body {
             font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
             background: radial-gradient(circle at 20% 30%, var(--bg-grad-start), var(--bg-grad-end));
@@ -111,7 +104,6 @@
             overflow-y: auto;
             overflow-x: hidden !important;
         }
-        
         body::before {
             content: "";
             position: fixed;
@@ -124,7 +116,6 @@
             z-index: -2;
             opacity: 0.9;
         }
-        
         body::after {
             content: "";
             position: fixed;
@@ -136,8 +127,6 @@
             z-index: -1;
             pointer-events: none;
         }
-        /* ========== هيدر ========== */
-        
         .header {
             position: absolute;
             top: 0;
@@ -153,20 +142,17 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        
         .logo {
             font-size: 1.8rem;
             font-weight: 900;
             color: var(--text-primary);
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         }
-        
         .nav {
             display: flex;
             gap: 1.5rem;
             flex-wrap: nowrap;
         }
-        
         .nav a {
             color: var(--text-primary);
             text-decoration: none;
@@ -175,14 +161,12 @@
             min-width: 75px;
             text-align: center;
         }
-        
         .search-container {
             display: flex;
             gap: 0.8rem;
             align-items: center;
             position: relative;
         }
-        
         .search-icon-btn {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
@@ -197,11 +181,9 @@
             justify-content: center;
             transition: all 0.3s;
         }
-        
         .search-icon-btn:hover {
             background: var(--accent-color);
         }
-        
         .search-box {
             background: rgba(20, 30, 50, 0.7);
             backdrop-filter: blur(8px);
@@ -220,13 +202,11 @@
             transform-origin: left;
             z-index: 10;
         }
-        
         .search-box.active {
             opacity: 1;
             visibility: visible;
             transform: scaleX(1);
         }
-        
         .search-box input {
             background: transparent;
             border: none;
@@ -236,7 +216,6 @@
             font-size: 1rem;
             min-width: 200px;
         }
-        
         .search-box button {
             background: transparent;
             border: none;
@@ -244,7 +223,6 @@
             font-size: 1.2rem;
             cursor: pointer;
         }
-        
         .theme-btn,
         .notify-btn {
             background: rgba(255, 255, 255, 0.1);
@@ -259,21 +237,17 @@
             align-items: center;
             justify-content: center;
         }
-        /* ========== Hero Slider ========== */
-        
         .hero-video-container {
             position: relative;
             height: 100vh;
             width: 100%;
             overflow: hidden;
         }
-        
         @media (max-width: 700px) {
             .hero-video-container {
                 height: 75svh;
             }
         }
-        
         .video-slide {
             position: absolute;
             top: 0;
@@ -284,12 +258,10 @@
             transition: opacity 1.5s;
             z-index: 1;
         }
-        
         .video-slide.active {
             opacity: 1;
             z-index: 2;
         }
-        
         .hero-video {
             position: absolute;
             top: 0;
@@ -301,7 +273,6 @@
             object-fit: cover;
             pointer-events: none;
         }
-        
         @supports (object-fit: cover) {
             .hero-video {
                 top: 50%;
@@ -309,7 +280,6 @@
                 transform: translate(-50%, -50%);
             }
         }
-        
         .hero-overlay {
             position: absolute;
             top: 0;
@@ -319,7 +289,6 @@
             background: linear-gradient(45deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1));
             z-index: 3;
         }
-        
         .hero-video-container::after {
             content: "";
             position: absolute;
@@ -330,8 +299,6 @@
             background: linear-gradient(to top, var(--bg-grad-end), transparent);
             z-index: 4;
         }
-        /* أيقونات مصغرة */
-        
         .slider-thumbnails {
             position: absolute;
             bottom: 120px;
@@ -344,7 +311,6 @@
             padding: 0 20px;
             touch-action: pan-y;
         }
-        
         .thumbnail-item {
             cursor: pointer;
             transition: 0.4s var(--ease-smooth);
@@ -354,14 +320,12 @@
             transform: scale(0.85);
             position: relative;
         }
-        
         .thumbnail-item.active {
             opacity: 1;
             transform: scale(1.15);
             filter: drop-shadow(0 15px 30px var(--accent-glow));
             z-index: 11;
         }
-        
         .thumbnail-img {
             aspect-ratio: 2/3;
             border-radius: 15px;
@@ -370,11 +334,9 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
             transition: opacity 0.3s;
         }
-        
         .thumbnail-item.active .thumbnail-img {
             border-color: var(--accent-color);
         }
-        
         .thumbnail-img img {
             width: 100%;
             height: 100%;
@@ -382,11 +344,9 @@
             display: block;
             transition: opacity 0.3s;
         }
-        
         .thumbnail-img.fade-out img {
             opacity: 0;
         }
-        
         .thumbnail-item::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -403,26 +363,21 @@
             transition: 0.3s var(--ease-smooth);
             pointer-events: none;
         }
-        
         .thumbnail-item:hover::after {
             opacity: 1;
             transform: translateX(-50%) translateY(5px);
         }
-        /* ========== قسم الكروت ========== */
-        
         .section {
             max-width: 1400px;
             margin: 0 auto 4rem;
             padding: 0 1.5rem;
             z-index: 2;
         }
-        
         .cartoon-grid {
             display: grid;
             grid-template-columns: repeat(6, minmax(0, 1fr));
             gap: 1.2rem;
         }
-        
         .card {
             position: relative;
             aspect-ratio: 2/3;
@@ -436,19 +391,16 @@
             border: 2px solid transparent;
             will-change: transform, box-shadow;
         }
-        
         .card.revealed {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
-        
         .card:hover {
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8);
             border-color: var(--card-bg-front);
             transform: scale(1.12);
             z-index: 20;
         }
-        
         .card img {
             width: 100%;
             height: 100%;
@@ -456,7 +408,6 @@
             display: block;
             transition: none;
         }
-        
         .card .overlay {
             position: absolute;
             top: 0;
@@ -474,13 +425,11 @@
             transition: opacity 0.3s, transform 0.3s;
             pointer-events: none;
         }
-        
         .card:hover .overlay,
         .card.show-overlay .overlay {
             opacity: 1;
             transform: translateY(0);
         }
-        
         .play-wrapper {
             flex: 1;
             display: flex;
@@ -488,7 +437,6 @@
             justify-content: center;
             pointer-events: auto;
         }
-        
         .play-btn {
             background: #e50914;
             border: none;
@@ -504,18 +452,15 @@
             cursor: pointer;
             transition: transform 0.15s, background 0.3s;
         }
-        
         .play-btn:hover {
             background: #f6121d;
             transform: scale(0.92);
         }
-        
         .card .overlay .text-bottom {
             text-align: center;
             width: 100%;
             pointer-events: auto;
         }
-        
         .card .overlay h3 {
             color: white;
             font-size: 1.2rem;
@@ -523,19 +468,16 @@
             text-shadow: 0 2px 4px black;
             margin-bottom: 5px;
         }
-        
         .card .overlay .genre {
             color: #ddd;
             font-size: 0.8rem;
         }
-        
         .pagination-controls {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-top: 40px;
         }
-        
         .page-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid var(--accent-color);
@@ -547,32 +489,26 @@
             backdrop-filter: blur(5px);
             transition: all 0.3s var(--ease-smooth);
         }
-        
         .page-btn.active {
             background: var(--accent-color);
             color: white;
         }
-        
         footer {
             text-align: center;
             padding: 2rem;
-            border-top: 1px solid var(--footer-border);
+            border-top: 1px solid var(--border-light);
             color: var(--text-secondary);
         }
-        /* ========== Media Queries ========== */
-        
         @media (max-width: 1200px) {
             .cartoon-grid {
                 grid-template-columns: repeat(5, 1fr);
             }
         }
-        
         @media (max-width: 900px) {
             .cartoon-grid {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
-        
         @media (max-width: 700px) {
             .cartoon-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -650,7 +586,6 @@
                 width: 100%;
             }
         }
-        
         @media (max-width: 500px) {
             .cartoon-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -675,13 +610,10 @@
 
 <body>
     <div class="hero-video-container" id="heroVideoContainer">
-
         <div class="video-slide"><img class="hero-video" src="img/dany5/how_to_train_your_dragon.jpg" alt="بيت التنانين"></div>
         <div class="video-slide"><img class="hero-video" src="img/dany5/onward.jpg" alt="الشقيقان"></div>
-
         <div class="video-slide active"><img class="hero-video" src="img/dany5/kung_fu_panda_4.jpg" alt="كونغ فو باندا 4"></div>
         <div class="hero-overlay"></div>
-
         <div class="slider-thumbnails" id="thumbnailCarousel">
             <div class="thumbnail-item active" data-index="0" id="thumb1">
                 <div class="thumbnail-img"><img id="img1" src="" alt=""></div>
@@ -716,12 +648,96 @@
     </header>
 
     <section id="watch" class="section">
-        <div class="cartoon-grid" id="mainGrid"></div>
+        <!-- ===== كل الكروت موجودة في الـ HTML نفسه عشان جوجل تشوفها ===== -->
+        <div class="cartoon-grid" id="mainGrid">
+            <!-- أفلام -->
+            <div class="card revealed" data-title="كونغ فو باندا 4" data-type="movie">
+                <img src="img/dany5/dany04.jpg" alt="كونغ فو باندا 4" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show1.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>كونغ فو باندا 4</h3><div class="genre">كوميدي، مغامرة</div></div></div>
+            </div>
+            <div class="card revealed" data-title="حكاية لعبة" data-type="movie">
+                <img src="img/dany5/dany016.jpg" alt="حكاية لعبة" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show2.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>حكاية لعبة</h3><div class="genre">مغامرة، كوميدي، عائلي</div></div></div>
+            </div>
+            <div class="card revealed" data-title="النملة والجراد" data-type="movie">
+                <img src="img/dany5/dany013.jpg" alt="النملة والجراد" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show3.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>النملة والجراد</h3><div class="genre">مغامرة، كوميدي</div></div></div>
+            </div>
+            <div class="card revealed" data-title="عائلة روبنسون" data-type="movie">
+                <img src="img/dany5/dany017.jpg" alt="عائلة روبنسون" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show4.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>عائلة روبنسون</h3><div class="genre">مغامرة، خيال علمي</div></div></div>
+            </div>
+            <div class="card revealed" data-title="مزرعة في خطر" data-type="movie">
+                <img src="img/dany5/dany018.jpg" alt="مزرعة في خطر" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show5.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>مزرعة في خطر</h3><div class="genre">كوميدي، مغامرة</div></div></div>
+            </div>
+            <div class="card revealed" data-title="ليلة في المتحف" data-type="movie">
+                <img src="img/dany5/dany019.jpg" alt="ليلة في المتحف" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show6.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>ليلة في المتحف</h3><div class="genre">كوميدي، مغامرة، عائلي</div></div></div>
+            </div>
+            <div class="card revealed" data-title="مريدا" data-type="movie">
+                <img src="img/dany5/dany011.jpg" alt="مريدا" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show7.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>مريدا</h3><div class="genre">مغامرة، دراما</div></div></div>
+            </div>
+            <div class="card revealed" data-title="عصر الجليد" data-type="movie">
+                <img src="img/dany5/dany08.jpg" alt="عصر الجليد" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show9.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>عصر الجليد</h3><div class="genre">مغامرة، كوميدي</div></div></div>
+            </div>
+            <div class="card revealed" data-title="ملكة الثلج" data-type="movie">
+                <img src="img/dany5/dany02.jpg" alt="ملكة الثلج" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show10.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>ملكة الثلج</h3><div class="genre">مغامرة، فانتازيا</div></div></div>
+            </div>
+            <div class="card revealed" data-title="الامبراطور 2000" data-type="movie">
+                <img src="img/dany5/dany021.jpg" alt="الامبراطور 2000" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show011.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>الامبراطور 2000</h3><div class="genre">كوميدي، مغامرة</div></div></div>
+            </div>
+            <div class="card revealed" data-title="الامبراطور 2004" data-type="movie">
+                <img src="img/dany5/dany020.jpg" alt="الامبراطور 2004" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show012.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>الامبراطور 2004</h3><div class="genre">كوميدي، مغامرة</div></div></div>
+            </div>
+            <div class="card revealed" data-title="فوق Up" data-type="movie">
+                <img src="img/dany5/dany023.jpg" alt="فوق Up" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show013.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>فوق Up</h3><div class="genre">مغامرة، دراما</div></div></div>
+            </div>
+            <div class="card revealed" data-title="قلباً وقالباً" data-type="movie">
+                <img src="img/dany5/dany022.jpg" alt="قلباً وقالباً" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show015.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>قلباً وقالباً</h3><div class="genre">دراما، كوميدي</div></div></div>
+            </div>
+            <div class="card revealed" data-title="الأسد الملك" data-type="movie">
+                <img src="img/dany5/dany025.jpg" alt="الأسد الملك" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show016.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>الأسد الملك</h3><div class="genre">دراما، مغامرة</div></div></div>
+            </div>
+            <div class="card revealed" data-title="الشقيقان" data-type="movie">
+                <img src="img/dany5/dany034.jpg" alt="الشقيقان" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show017.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>الشقيقان</h3><div class="genre">مغامرة، أكشن</div></div></div>
+            </div>
+            <div class="card revealed" data-title="الفار الطباخ" data-type="movie">
+                <img src="img/dany5/dany035.jpg" alt="الفار الطباخ" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show014.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>الفار الطباخ</h3><div class="genre">دراما، مغامرة</div></div></div>
+            </div>
+            <div class="card revealed" data-title="بيت التنانين" data-type="movie">
+                <img src="img/dany5/dany01.jpg" alt="بيت التنانين" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show8.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>بيت التنانين</h3><div class="genre"></div></div></div>
+            </div>
+            <div class="card revealed" data-title="روح" data-type="movie">
+                <img src="img/dany5/dany027.jpg" alt="روح" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="show6/show018.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>روح</h3><div class="genre">فانتازيا، دراما</div></div></div>
+            </div>
+            <!-- المسلسلات -->
+            <div class="card revealed" data-title="بن تن" data-type="series">
+                <img src="img/dany5/dany024.jpg" alt="بن تن" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="series/ben10.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>بن تن</h3><div class="genre">أكشن، خيال علمي</div></div></div>
+            </div>
+            <div class="card revealed" data-title="بيت التنانين (مسلسل)" data-type="series">
+                <img src="img/dany5/dany028.jpg" alt="بيت التنانين" loading="lazy">
+                <div class="overlay"><div class="play-wrapper"><div class="play-btn" data-link="series/httyd.html"><svg width="28" height="28" viewBox="0 0 384 512" fill="white"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80v352c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></div></div><div class="text-bottom"><h3>بيت التنانين (مسلسل)</h3><div class="genre">فانتازيا، دراما</div></div></div>
+            </div>
+        </div>
         <div class="pagination-controls" id="paginationControls"></div>
     </section>
 
     <footer>
-        <p>© 2025 HaM كرتون - حيث الخيال يصبح حقيقة</p>
+        <p>© 2026 HaM كرتون - حيث الخيال يصبح حقيقة</p>
     </footer>
     <audio id="clickSound" preload="auto" style="display:none;"><source src="sounds/click.mp3" type="audio/mpeg"></audio>
 
@@ -739,154 +755,30 @@
                 once: true
             });
 
+            // جميع العناصر (نفس البيانات مع تصحيح اسم المسلسل)
             const allItems = [
-                // الأفلام (type: 'movie')
-                {
-                    title: "كونغ فو باندا 4",
-                    image: "img/dany5/dany04.jpg",
-                    link: "show6/show1.html",
-                    rating: 8.7,
-                    genre: "كوميدي، مغامرة",
-                    type: 'movie'
-                }, {
-                    title: "حكاية لعبة",
-                    image: "img/dany5/dany016.jpg",
-                    link: "show6/show2.html",
-                    rating: 8.8,
-                    genre: "مغامرة، كوميدي، عائلي",
-                    type: 'movie'
-                }, {
-                    title: "النملة والجراد",
-                    image: "img/dany5/dany013.jpg",
-                    link: "show6/show3.html",
-                    rating: 7.9,
-                    genre: "مغامرة، كوميدي",
-                    type: 'movie'
-                }, {
-                    title: "عائلة روبنسون",
-                    image: "img/dany5/dany017.jpg",
-                    link: "show6/show4.html",
-                    rating: 8.1,
-                    genre: "مغامرة، خيال علمي",
-                    type: 'movie'
-                }, {
-                    title: "مزرعة في خطر",
-                    image: "img/dany5/dany018.jpg",
-                    link: "show6/show5.html",
-                    rating: 7.5,
-                    genre: "كوميدي، مغامرة",
-                    type: 'movie'
-                }, {
-                    title: "ليلة في المتحف",
-                    image: "img/dany5/dany019.jpg",
-                    link: "show6/show6.html",
-                    rating: 8.3,
-                    genre: "كوميدي، مغامرة، عائلي",
-                    type: 'movie'
-                }, {
-                    title: "مريدا",
-                    image: "img/dany5/dany011.jpg",
-                    link: "show6/show7.html",
-                    rating: 8.4,
-                    genre: "مغامرة، دراما",
-                    type: 'movie'
-                }, {
-                    title: "عصر الجليد",
-                    image: "img/dany5/dany08.jpg",
-                    link: "show6/show9.html",
-                    rating: 8.5,
-                    genre: "مغامرة، كوميدي",
-                    type: 'movie'
-                }, {
-                    title: "ملكة الثلج",
-                    image: "img/dany5/dany02.jpg",
-                    link: "show6/show10.html",
-                    rating: 8.4,
-                    genre: "مغامرة، فانتازيا",
-                    type: 'movie'
-                }, {
-                    title: "الامبراطور 2000",
-                    image: "img/dany5/dany021.jpg",
-                    link: "show6/show011.html",
-                    rating: 7.8,
-                    genre: "كوميدي، مغامرة",
-                    type: 'movie'
-                }, {
-                    title: "الامبراطور 2004",
-                    image: "img/dany5/dany020.jpg",
-                    link: "show6/show012.html",
-                    rating: 7.7,
-                    genre: "كوميدي، مغامرة",
-                    type: 'movie'
-                }, {
-                    title: "فوق Up",
-                    image: "img/dany5/dany023.jpg",
-                    link: "show6/show013.html",
-                    rating: 8.9,
-                    genre: "مغامرة، دراما",
-                    type: 'movie'
-                }, {
-                    title: "قلباً وقالباً",
-                    image: "img/dany5/dany022.jpg",
-                    link: "show6/show015.html",
-                    rating: 8.0,
-                    genre: "دراما، كوميدي",
-                    type: 'movie'
-                }, {
-                    title: "الأسد الملك",
-                    image: "img/dany5/dany025.jpg",
-                    link: "show6/show016.html",
-                    rating: 8.8,
-                    genre: "دراما، مغامرة",
-                    type: 'movie'
-                }, {
-                    title: "الشقيقان",
-                    image: "img/dany5/dany034.jpg",
-                    link: "show6/show017.html",
-                    rating: 9.0,
-                    genre: "مغامرة، أكشن",
-                    type: 'movie'
-                }, {
-                    title: "الفار الطباخ",
-                    image: "img/dany5/dany035.jpg",
-                    link: "show6/show014.html",
-                    rating: 8.8,
-                    genre: "دراما، مغامرة",
-                    type: 'movie'
-                }, {
-                    title: "بيت التنانين",
-                    image: "img/dany5/dany01.jpg",
-                    link: "show6/show8.html",
-                    rating: 8.8,
-                    genre: "",
-                    type: 'movie'
-                }, {
-                    title: "روح",
-                    image: "img/dany5/dany027.jpg",
-                    link: "show6/show018.html",
-                    rating: 8.3,
-                    genre: "فانتازيا، دراما",
-                    type: 'movie'
-                },
-
-                // ========== المسلسلات (type: 'series') ==========
-                {
-                    title: "بن تن",
-                    image: "img/dany5/dany024.jpg",
-                    link: "series/ben10.html",
-                    rating: 8.2,
-                    genre: "أكشن، خيال علمي",
-                    type: 'series',
-                    seriesId: 'ben10'
-                }, {
-                    title: "دانى الشبح",
-                    image: "img/dany5/dany028.jpg",
-                    link: "series/httyd.html",
-                    rating: 8.9,
-                    genre: "فانتازيا، دراما",
-                    type: 'series',
-                    seriesId: 'httyd'
-                }
+                // أفلام
+                { title: "كونغ فو باندا 4", image: "img/dany5/dany04.jpg", link: "show6/show1.html", rating: 8.7, genre: "كوميدي، مغامرة", type: 'movie' },
+                { title: "حكاية لعبة", image: "img/dany5/dany016.jpg", link: "show6/show2.html", rating: 8.8, genre: "مغامرة، كوميدي، عائلي", type: 'movie' },
+                { title: "النملة والجراد", image: "img/dany5/dany013.jpg", link: "show6/show3.html", rating: 7.9, genre: "مغامرة، كوميدي", type: 'movie' },
+                { title: "عائلة روبنسون", image: "img/dany5/dany017.jpg", link: "show6/show4.html", rating: 8.1, genre: "مغامرة، خيال علمي", type: 'movie' },
+                { title: "مزرعة في خطر", image: "img/dany5/dany018.jpg", link: "show6/show5.html", rating: 7.5, genre: "كوميدي، مغامرة", type: 'movie' },
+                { title: "ليلة في المتحف", image: "img/dany5/dany019.jpg", link: "show6/show6.html", rating: 8.3, genre: "كوميدي، مغامرة، عائلي", type: 'movie' },
+                { title: "مريدا", image: "img/dany5/dany011.jpg", link: "show6/show7.html", rating: 8.4, genre: "مغامرة، دراما", type: 'movie' },
+                { title: "عصر الجليد", image: "img/dany5/dany08.jpg", link: "show6/show9.html", rating: 8.5, genre: "مغامرة، كوميدي", type: 'movie' },
+                { title: "ملكة الثلج", image: "img/dany5/dany02.jpg", link: "show6/show10.html", rating: 8.4, genre: "مغامرة، فانتازيا", type: 'movie' },
+                { title: "الامبراطور 2000", image: "img/dany5/dany021.jpg", link: "show6/show011.html", rating: 7.8, genre: "كوميدي، مغامرة", type: 'movie' },
+                { title: "الامبراطور 2004", image: "img/dany5/dany020.jpg", link: "show6/show012.html", rating: 7.7, genre: "كوميدي، مغامرة", type: 'movie' },
+                { title: "فوق Up", image: "img/dany5/dany023.jpg", link: "show6/show013.html", rating: 8.9, genre: "مغامرة، دراما", type: 'movie' },
+                { title: "قلباً وقالباً", image: "img/dany5/dany022.jpg", link: "show6/show015.html", rating: 8.0, genre: "دراما، كوميدي", type: 'movie' },
+                { title: "الأسد الملك", image: "img/dany5/dany025.jpg", link: "show6/show016.html", rating: 8.8, genre: "دراما، مغامرة", type: 'movie' },
+                { title: "الشقيقان", image: "img/dany5/dany034.jpg", link: "show6/show017.html", rating: 9.0, genre: "مغامرة، أكشن", type: 'movie' },
+                { title: "الفار الطباخ", image: "img/dany5/dany035.jpg", link: "show6/show014.html", rating: 8.8, genre: "دراما، مغامرة", type: 'movie' },
+                { title: "بيت التنانين", image: "img/dany5/dany01.jpg", link: "show6/show8.html", rating: 8.8, genre: "", type: 'movie' },
+                { title: "روح", image: "img/dany5/dany027.jpg", link: "show6/show018.html", rating: 8.3, genre: "فانتازيا، دراما", type: 'movie' },
+                // مسلسلات
+                { title: "بن تن", image: "img/dany5/dany024.jpg", link: "series/ben10.html", rating: 8.2, genre: "أكشن، خيال علمي", type: 'series', seriesId: 'ben10' },
+                { title: "بيت التنانين (مسلسل)", image: "img/dany5/dany028.jpg", link: "series/httyd.html", rating: 8.9, genre: "فانتازيا، دراما", type: 'series', seriesId: 'httyd' }
             ];
 
             const ITEMS_PER_PAGE = 18;
@@ -926,9 +818,7 @@
                     });
                     card.addEventListener('touchstart', function() {
                         this.classList.add('show-overlay');
-                    }, {
-                        passive: true
-                    });
+                    }, { passive: true });
                     card.addEventListener('touchend', function() {
                         this.classList.remove('show-overlay');
                     });
@@ -945,9 +835,7 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
+            }, { threshold: 0.1 });
 
             function observeCards() {
                 document.querySelectorAll('.card').forEach(card => observer.observe(card));
@@ -968,32 +856,19 @@
                 const prev = document.createElement('button');
                 prev.textContent = '‹ السابق';
                 prev.className = 'page-btn';
-                prev.onclick = () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        updateDisplay();
-                    }
-                };
+                prev.onclick = () => { if (currentPage > 1) { currentPage--; updateDisplay(); } };
                 cont.appendChild(prev);
                 for (let i = 1; i <= totalPages; i++) {
                     const btn = document.createElement('button');
                     btn.textContent = i;
                     btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
-                    btn.onclick = () => {
-                        currentPage = i;
-                        updateDisplay();
-                    };
+                    btn.onclick = () => { currentPage = i; updateDisplay(); };
                     cont.appendChild(btn);
                 }
                 const next = document.createElement('button');
                 next.textContent = 'التالي ›';
                 next.className = 'page-btn';
-                next.onclick = () => {
-                    if (currentPage < totalPages) {
-                        currentPage++;
-                        updateDisplay();
-                    }
-                };
+                next.onclick = () => { if (currentPage < totalPages) { currentPage++; updateDisplay(); } };
                 cont.appendChild(next);
             }
 
@@ -1016,18 +891,12 @@
                 }
             });
             document.getElementById('searchBtn').addEventListener('click', () => searchInput.dispatchEvent(new Event('input')));
-            document.getElementById('navSeries').addEventListener('click', e => {
-                e.preventDefault();
-                filterItems('series');
-            });
-            document.getElementById('navMovies').addEventListener('click', e => {
-                e.preventDefault();
-                filterItems('movies');
-            });
-            document.querySelector('.nav a[href="#"]').addEventListener('click', e => {
-                e.preventDefault();
-                filterItems('all');
-            });
+            document.getElementById('navSeries').addEventListener('click', e => { e.preventDefault();
+                filterItems('series'); });
+            document.getElementById('navMovies').addEventListener('click', e => { e.preventDefault();
+                filterItems('movies'); });
+            document.querySelector('.nav a[href="#"]').addEventListener('click', e => { e.preventDefault();
+                filterItems('all'); });
 
             const searchIconBtn = document.getElementById('searchIconBtn'),
                 searchBox = document.getElementById('searchBox');
@@ -1041,7 +910,7 @@
             });
             searchBox.addEventListener('click', (e) => e.stopPropagation());
 
-            // ---------- الكاروسيل مع دعم السحب اليدوي (Touch Swipe) ----------
+            // الكاروسيل
             const slides = document.querySelectorAll('.video-slide');
             const thumb1 = document.getElementById('thumb1'),
                 thumb2 = document.getElementById('thumb2'),
@@ -1051,7 +920,8 @@
                 img3 = document.getElementById('img3');
             const carouselContainer = document.getElementById('thumbnailCarousel');
             let currentStartIndex = 0,
-                autoRotateInterval, totalItems = allItems.length;
+                autoRotateInterval,
+                totalItems = allItems.length;
 
             function updateThumbnails(startIndex) {
                 const itemsToShow = [];
@@ -1075,9 +945,7 @@
             function setActiveThumb(activeIndex) {
                 [thumb1, thumb2, thumb3].forEach((t, i) => t.classList.toggle('active', i === activeIndex));
                 const heroIndex = (currentStartIndex + 1) % slides.length;
-                slides.forEach((s, i) => {
-                    s.classList.toggle('active', i === heroIndex);
-                });
+                slides.forEach((s, i) => { s.classList.toggle('active', i === heroIndex); });
             }
 
             function nextCarouselStep() {
@@ -1095,9 +963,7 @@
                 autoRotateInterval = setInterval(nextCarouselStep, 5000);
             }
 
-            function stopAutoRotate() {
-                clearInterval(autoRotateInterval);
-            }
+            function stopAutoRotate() { clearInterval(autoRotateInterval); }
 
             let touchStartX = 0,
                 touchStartY = 0,
@@ -1107,37 +973,23 @@
                 touchStartY = e.touches[0].clientY;
                 isSwipingCarousel = true;
                 stopAutoRotate();
-            }, {
-                passive: true
-            });
-
+            }, { passive: true });
             carouselContainer.addEventListener('touchmove', (e) => {
                 if (!isSwipingCarousel) return;
                 const diffX = e.touches[0].clientX - touchStartX;
                 const diffY = e.touches[0].clientY - touchStartY;
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    e.preventDefault();
-                }
-            }, {
-                passive: false
-            });
-
+                if (Math.abs(diffX) > Math.abs(diffY)) e.preventDefault();
+            }, { passive: false });
             carouselContainer.addEventListener('touchend', (e) => {
                 if (!isSwipingCarousel) return;
                 isSwipingCarousel = false;
                 const touchEndX = e.changedTouches[0].clientX;
                 const diffX = touchEndX - touchStartX;
                 const diffY = e.changedTouches[0].clientY - touchStartY;
-                if (Math.abs(diffX) < 30 || Math.abs(diffX) < Math.abs(diffY)) {
-                    startAutoRotate();
-                    return;
-                }
+                if (Math.abs(diffX) < 30 || Math.abs(diffX) < Math.abs(diffY)) { startAutoRotate(); return; }
                 playClick();
-                if (diffX > 0) {
-                    prevCarouselStep();
-                } else {
-                    nextCarouselStep();
-                }
+                if (diffX > 0) prevCarouselStep();
+                else nextCarouselStep();
                 startAutoRotate();
             });
 
@@ -1172,16 +1024,19 @@
                 playClick();
                 if (isDark) {
                     body.classList.add('light-mode');
-                    themeBtn.innerHTML = '<svg width="1.2em" height="1.2em" viewBox="0 0 512 512" fill="currentColor"><path d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>';
+                    themeBtn.innerHTML =
+                        '<svg width="1.2em" height="1.2em" viewBox="0 0 512 512" fill="currentColor"><path d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"/></svg>';
                     isDark = false;
                 } else {
                     body.classList.remove('light-mode');
-                    themeBtn.innerHTML = '<svg width="1.2em" height="1.2em" viewBox="0 0 512 512" fill="currentColor"><path d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23C301.632 1.15 270.809 0 239.961 0 107.998 0 0 107.998 0 240c0 132.002 107.998 240 240 240h43.211z"/></svg>';
+                    themeBtn.innerHTML =
+                        '<svg width="1.2em" height="1.2em" viewBox="0 0 512 512" fill="currentColor"><path d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23C301.632 1.15 270.809 0 239.961 0 107.998 0 0 107.998 0 240c0 132.002 107.998 240 240 240h43.211z"/></svg>';
                     isDark = true;
                 }
                 document.getElementById('themeColorMeta').setAttribute('content', isDark ? '#2a3f6e' : '#1e4a6b');
             });
 
+            // بداية العرض
             updateDisplay();
         })();
     </script>
