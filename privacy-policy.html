@@ -1,193 +1,46 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+import 'dart:async'; import 'package:flutter/material.dart'; import 'package:flutter/services.dart'; import 'package:shared_preferences/shared_preferences.dart'; import 'package:provider/provider.dart'; import 'data.dart'; import 'models.dart'; import
+'movie_detail_screen.dart'; import 'series_detail_screen.dart'; import 'theme_provider.dart'; class HomePage extends StatefulWidget { const HomePage({super.key}); @override State
+<HomePage> createState() => _HomePageState(); } class _HomePageState extends State
+    <HomePage> { String _activeSection = 'الكل'; List
+        <CartoonItem> _continueWatching = []; List
+            <CartoonItem> _recentlyWatched = []; @override void initState() { super.initState(); _loadWatchHistory(); } Future
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سياسة الخصوصية - HaM كرتون</title>
-    <style>
-         :root {
-            --bg: #0a0a0a;
-            --text: #ddd;
-            --card-bg: #1a1a1a;
-            --border: #3a3a3a;
-            --accent: #ff6b4a;
-        }
-        
-        body.light-mode {
-            --bg: #f5f5f5;
-            --text: #1a1a1a;
-            --card-bg: #ffffff;
-            --border: #ccc;
-            --accent: #d94f33;
-        }
-        
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 20px;
-            direction: rtl;
-            transition: background 0.3s, color 0.3s;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            padding: 30px 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        h1 {
-            text-align: center;
-            color: var(--accent);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        h2 {
-            color: var(--accent);
-            margin-top: 30px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 8px;
-        }
-        
-        p,
-        ul {
-            line-height: 1.8;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
-        
-        ul {
-            padding-right: 25px;
-        }
-        
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-    </style>
-</head>
+                <void> _loadWatchHistory() async { final prefs = await SharedPreferences.getInstance(); final continueIds = prefs.getStringList('continue_watching') ?? []; final recentIds = prefs.getStringList('recently_watched') ?? []; setState(() { _continueWatching
+                    = allItems.where((item) => continueIds.contains(item.link)).toList(); _recentlyWatched = allItems.where((item) => recentIds.contains(item.link)).toList(); }); } void _onSectionTap(String section) { setState(() => _activeSection = section);
+                    } void _openDetail(CartoonItem item) async { HapticFeedback.lightImpact(); // حفظ في سجل المشاهدة final prefs = await SharedPreferences.getInstance(); List
+                    <String> recent = prefs.getStringList('recently_watched') ?? []; recent.remove(item.link); recent.insert(0, item.link); if (recent.length > 10) recent = recent.sublist(0, 10); await prefs.setStringList('recently_watched', recent); // إضافة
+                        إلى مواصلة المشاهدة (للمحاكاة) List
+                        <String> continueList = prefs.getStringList('continue_watching') ?? []; if (!continueList.contains(item.link)) { continueList.add(item.link); await prefs.setStringList('continue_watching', continueList); } if (item.type == 'series') { String
+                            seriesId; if (item.link.contains('ben10')) { seriesId = 'ben10'; } else if (item.link.contains('danny')) { seriesId = 'danny_phantom'; } else { seriesId = 'httyd'; } Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                            SeriesDetailScreen(seriesId: seriesId))); } else { Navigator.push(context, MaterialPageRoute(builder: (_) => MovieDetailScreen(item: item))); } } List
 
-<body class="light-mode">
-    <button class="theme-toggle" onclick="toggleMode()">🌓</button>
-    <div class="container">
-        <h1>سياسة الخصوصية</h1>
-        <p><strong>آخر تحديث:</strong> 21 أبريل 2026</p>
-
-        <p>
-            مرحبًا بك في موقع <strong>HaM كرتون</strong> ("نحن"، "الموقع"). نحن نلتزم بحماية خصوصية زوارنا ومستخدمينا. توضح سياسة الخصوصية هذه كيفية جمعنا واستخدامنا وحمايتنا للمعلومات الشخصية التي قد تقدمها لنا عند استخدام الموقع.
-        </p>
-
-        <h2>1. المعلومات التي نجمعها</h2>
-        <ul>
-            <li><strong>معلومات تلقائية:</strong> عند زيارتك للموقع، قد نسجل تلقائيًا عنوان IP، نوع المتصفح، نظام التشغيل، الصفحات التي تزورها، ووقت وتاريخ الزيارة. هذه البيانات تُستخدم لتحسين أداء الموقع ولا تحدد هويتك الشخصية.</li>
-            <li><strong>ملفات تعريف الارتباط (Cookies):</strong> نستخدم ملفات تعريف ارتباط ضرورية لعمل الموقع (مثل تذكر تفضيلات الوضع الليلي/الفاتح). يمكنك تعطيلها من إعدادات المتصفح، ولكن قد يؤثر ذلك على تجربتك.</li>
-            <li>نحن <strong>لا نجمع</strong> أي معلومات شخصية مثل الاسم أو البريد الإلكتروني أو رقم الهاتف إلا إذا قدمتها طواعية (مثلاً عبر نموذج اتصال غير موجود حاليًا).</li>
-        </ul>
-
-        <h2>2. كيفية استخدام المعلومات</h2>
-        <p>
-            نستخدم المعلومات المجمعة تلقائيًا من أجل:
-        </p>
-        <ul>
-            <li>تحسين محتوانا وتجربة المستخدم.</li>
-            <li>تحليل الإحصائيات (عدد الزوار، الصفحات الأكثر مشاهدة) باستخدام أدوات خارجية مثل Google Analytics.</li>
-            <li>ضمان أمان الموقع ومنع الاحتيال.</li>
-        </ul>
-
-        <h2>3. خدمات الطرف الثالث</h2>
-        <p>
-            قد يستخدم موقعنا خدمات خارجية مثل:
-        </p>
-        <ul>
-            <li><strong>Google Analytics:</strong> لتحليل حركة المرور. يمكنك الاطلاع على سياسة خصوصية جوجل من <a href="https://policies.google.com/privacy" target="_blank">هنا</a>.</li>
-            <li><strong>مشغلات فيديو خارجية (Vidmoly، Streamtape، إلخ):</strong> عندما تشاهد حلقة، قد يتم تضمين محتوى من هذه الخدمات التي قد تجمع بيانات وفقًا لسياساتها الخاصة. نحن لا نتحكم في هذه البيانات.</li>
-            <li><strong>Google Fonts:</strong> نقوم بتحميل خطوط من Google بشكل مجهول الهوية.</li>
-        </ul>
-        <p>
-            بإمكانك حظر هذه الخدمات عبر إضافات المتصفح، ولكن قد تتوقف بعض الميزات عن العمل.
-        </p>
-
-        <h2>4. ملفات تعريف الارتباط (Cookies)</h2>
-        <p>
-            نستخدم نوعين من ملفات الارتباط:
-        </p>
-        <ul>
-            <li><strong>ضرورية:</strong> لحفظ إعداداتك (مثل تفضيلات العرض). لا يمكن تعطيلها.</li>
-            <li><strong>تحليلية (من Google Analytics):</strong> لتجميع إحصاءات الزوار. يمكنك إلغاء الاشتراك عبر <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">أداة تعطيل Google Analytics</a>.</li>
-        </ul>
-
-        <h2>5. خصوصية الأطفال</h2>
-        <p>
-            موقعنا موجه لعامة الجمهور ويضم محتوى كرتونيًا مناسبًا لجميع الأعمار. ومع ذلك، لا نجمع عن قصد أي معلومات من الأطفال دون سن 13 عامًا. إذا كنت تعتقد أن طفلاً قد زودنا بمعلومات شخصية، يرجى الاتصال بنا وسنقوم بحذفها فورًا.
-        </p>
-
-        <h2>6. أمن البيانات</h2>
-        <p>
-            نتخذ إجراءات أمنية معقولة لحماية المعلومات التي نجمعها من الفقد أو الوصول غير المصرح به. لكن لا توجد وسيلة نقل أو تخزين إلكتروني آمنة بنسبة 100%، لذا لا يمكننا ضمان الأمان المطلق.
-        </p>
-
-        <h2>7. روابط لمواقع أخرى</h2>
-        <p>
-            قد يحتوي الموقع على روابط لمواقع خارجية (مثل مواقع المشاهدة أو شبكات التواصل). نحن غير مسؤولين عن ممارسات الخصوصية لتلك المواقع، ونشجعك على قراءة سياساتها.
-        </p>
-
-        <h2>8. التغييرات على سياسة الخصوصية</h2>
-        <p>
-            نحتفظ بالحق في تحديث هذه السياسة في أي وقت. سيتم نشر أي تغييرات على هذه الصفحة مع تاريخ "آخر تحديث". استمرارك في استخدام الموقع بعد التعديلات يعتبر قبولًا منك.
-        </p>
-
-        <h2>9. اتصل بنا</h2>
-        <p>
-            إذا كانت لديك أي أسئلة أو استفسارات حول سياسة الخصوصية، يمكنك التواصل معنا عبر:
-        </p>
-        <p>
-            البريد الإلكتروني: <a href="mailto:privacy.hamcartoon@example.com">privacy.hamcartoon@example.com</a> (عنوان توضيحي – يمكنك تغييره لاحقًا)
-        </p>
-
-        <div class="footer">
-            © 2026 HaM كرتون - جميع الحقوق محفوظة
-        </div>
-    </div>
-
-    <script>
-        function toggleMode() {
-            document.body.classList.toggle('light-mode');
-        }
-        // يمكن إبقاء الوضع الافتراضي حسب تفضيل المستخدم السابق
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.remove('light-mode');
-        }
-    </script>
-</body>
-
-</html>
+                            <CartoonItem> _filterItems(String section) { switch (section) { case 'أفلام': return allItems.where((i) => i.type == 'movie').toList(); case 'مسلسلات': return allItems.where((i) => i.type == 'series').toList(); case 'أطفال': return allItems.where((i)
+                                => i.type == 'movie' && i.genre.contains('عائلي')).toList(); case 'الأكثر مشاهدة': final list = List
+                                <CartoonItem>.from(allItems); list.sort((a, b) => b.rating.compareTo(a.rating)); return list; default: return allItems; } } // عناصر سلسلة "كيف تروض تنينك" List
+                                    <CartoonItem> get _dragonItems => allItems.where((i) => i.title.contains('تنين') || i.link.contains('dragon')).toList(); @override Widget build(BuildContext context) { final theme = Theme.of(context); final isDark = theme.brightness
+                                        == Brightness.dark; return Scaffold( body: SafeArea( child: CustomScrollView( slivers: [ // شريط العنوان العلوي SliverAppBar( pinned: true, floating: true, backgroundColor: theme.cardColor, title: Row( mainAxisSize:
+                                        MainAxisSize.min, children: [ Text('🎭 HaM ', style: TextStyle(fontWeight: FontWeight.w900, color: theme.textTheme.bodyLarge?.color)), Text('كرتون', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFFFF5A3C))),
+                                        ], ), actions: [ IconButton( icon: Icon(Icons.search, color: theme.textTheme.bodyLarge?.color), onPressed: () { // يمكن الانتقال إلى صفحة البحث }, ), IconButton( icon: Icon( isDark ? Icons.brightness_7 : Icons.brightness_3,
+                                        color: theme.textTheme.bodyLarge?.color, ), onPressed: () => context.read
+                                        <ThemeProvider>().toggle(), ), ], ), // شريط التصنيفات الأفقي SliverToBoxAdapter( child: Container( height: 50, padding: const EdgeInsets.symmetric(horizontal: 8), child: ListView( scrollDirection: Axis.horizontal, children: [
+                                            _sectionChip('الكل', Icons.home), _sectionChip('أفلام', Icons.movie), _sectionChip('مسلسلات', Icons.tv), _sectionChip('أطفال', Icons.child_care), _sectionChip('مواصلة المشاهدة', Icons.play_circle), _sectionChip('آخر
+                                            مشاهد', Icons.history), _sectionChip('الأكثر مشاهدة', Icons.local_fire_department), ], ), ), ), // المحتوى الرئيسي SliverList( delegate: SliverChildListDelegate([ const SizedBox(height: 16), // عرض محتوى القسم
+                                            النشط if (_activeSection == 'مواصلة المشاهدة' && _continueWatching.isNotEmpty) _buildHorizontalSection('▶️ مواصلة المشاهدة', _continueWatching), if (_activeSection == 'آخر مشاهد' && _recentlyWatched.isNotEmpty)
+                                            _buildHorizontalSection('🕒 آخر مشاهد', _recentlyWatched), if (_activeSection != 'مواصلة المشاهدة' && _activeSection != 'آخر مشاهد') _buildHorizontalSection('🎬 $_activeSection', _filterItems(_activeSection)),
+                                            const SizedBox(height: 24), // قسم الأكثر مشاهدة يظهر دائمًا في الأسفل _buildHorizontalSection('🔥 الأكثر مشاهدة', _filterItems('الأكثر مشاهدة')), const SizedBox(height: 24), // قسم تشغيل (سلسلة كيف تروض تنينك)
+                                            if (_dragonItems.isNotEmpty) ...[ _sectionTitleWithIcon('🐉 كيف تروض تنينك'), _buildHorizontalList(_dragonItems), const SizedBox(height: 24), ], // تذييل Center( child: Text('© 2026 HaM كرتون', style: TextStyle(color:
+                                            Colors.grey)), ), const SizedBox(height: 20), ]), ), ], ), ), ); } Widget _sectionChip(String label, IconData icon) { final isSelected = _activeSection == label; return Padding( padding: const EdgeInsets.symmetric(horizontal:
+                                            4), child: ChoiceChip( avatar: Icon(icon, size: 18, color: isSelected ? Colors.white : null), label: Text(label, style: TextStyle(fontSize: 13)), selected: isSelected, onSelected: (_) => _onSectionTap(label),
+                                            selectedColor: Color(0xFFFF5A3C), backgroundColor: Theme.of(context).cardColor, labelStyle: TextStyle(color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyLarge?.color), ), ); } Widget _buildHorizontalSection(String
+                                            title, List
+                                            <CartoonItem> items) { if (items.isEmpty) return SizedBox.shrink(); return Column( crossAxisAlignment: CrossAxisAlignment.start, children: [ _sectionTitleWithIcon(title), _buildHorizontalList(items), ], ); } Widget _sectionTitleWithIcon(String
+                                                title) { return Padding( padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [ Text(title, style: TextStyle(fontSize:
+                                                18, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.bodyLarge?.color)), TextButton(onPressed: () {}, child: const Text('المزيد')), ], ), ); } Widget _buildHorizontalList(List
+                                                <CartoonItem>
+                                                items) { return SizedBox( height: 160, child: ListView.builder( scrollDirection: Axis.horizontal, padding: const EdgeInsets.symmetric(horizontal: 12), itemCount: items.length, itemBuilder: (context, index)
+                                                    { final item = items[index]; return GestureDetector( onTap: () => _openDetail(item), child: Container( width: 130, margin: const EdgeInsets.symmetric(horizontal: 6), decoration: BoxDecoration( borderRadius:
+                                                    BorderRadius.circular(12), image: DecorationImage( image: AssetImage(item.image), fit: BoxFit.cover, ), boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 6)], ), child: Align( alignment: Alignment.bottomCenter,
+                                                    child: Container( width: double.infinity, padding: const EdgeInsets.all(8), decoration: BoxDecoration( borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)), gradient: LinearGradient(
+                                                    begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.transparent, Colors.black87], ), ), child: Column( mainAxisSize: MainAxisSize.min, children: [ Text( item.title, style: const
+                                                    TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold), textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis, ), const SizedBox(height: 2), Text( item.type ==
+                                                    'movie' ? '2024' : item.genre, style: const TextStyle(color: Colors.white70, fontSize: 10), ), ], ), ), ), ), ); }, ), ); } }
