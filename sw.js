@@ -4,7 +4,6 @@ const STATIC_CACHE = `ham-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `ham-dynamic-${CACHE_VERSION}`;
 const IMAGE_CACHE = `ham-images-${CACHE_VERSION}`;
 
-// الملفات الأساسية التي يجب تخزينها فور تثبيت الـ SW
 const STATIC_ASSETS = [
     '/HaM/',
     '/HaM/index.html',
@@ -16,10 +15,7 @@ const STATIC_ASSETS = [
     'https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap'
 ];
 
-// قواعد التخزين المؤقت للصور (Cache First)
 const IMAGE_EXTENSIONS = /\.(jpg|jpeg|png|gif|webp|svg|ico)$/i;
-
-// قواعد التخزين للفيديوهات (Network First with timeout)
 const VIDEO_EXTENSIONS = /\.(mp4|webm|ogg)$/i;
 
 self.addEventListener('install', (event) => {
@@ -57,7 +53,6 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // استراتيجية الصور: Cache First
     if (IMAGE_EXTENSIONS.test(request.url)) {
         event.respondWith(
             caches.match(request)
@@ -85,7 +80,6 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // استراتيجية الفيديوهات: Network First
     if (VIDEO_EXTENSIONS.test(request.url)) {
         event.respondWith(
             new Promise((resolve) => {
@@ -116,7 +110,6 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // استراتيجية افتراضية: Stale-While-Revalidate
     event.respondWith(
         caches.match(request)
         .then(cachedResponse => {
@@ -135,7 +128,6 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
-// ========== إشعارات Push (متوافقة مع جميع البيئات) ==========
 self.addEventListener('push', (event) => {
     let notificationData = {
         title: 'HaM كرتون',
